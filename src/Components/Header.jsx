@@ -52,52 +52,53 @@ export default function Header({ user, route, signoutCallback }) {
 
   return (
     <div className="Header">
-    <Navbar data-bs-theme="dark" className="custom-nav">
-    <Container>
-      <Navbar.Brand href="/">
-        <Navbar.Text className="Header-title">Amp<span className="Header-stack">Stack</span></Navbar.Text>
+    <Navbar data-bs-theme="dark" expand="md" className="Header-custom-nav">
+    <Container fluid>
+      <Navbar.Brand className="Header-title" href="/">
+        Amp<span className="Header-stack">Stack</span>
       </Navbar.Brand>
-      <Nav className="me-auto Header-link">
-        <Link to={`about`}>About</Link> 
-      { (route === 'authenticated') ?
-      (
-        <Link to={`workspace`}>Workspace</Link> 
-      ) : (<></>)
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="me-auto Header-link">
+          <Link to={`about`}>About</Link> 
+        { (route === 'authenticated') ?
+        (
+          <Link to={`workspace`}>Workspace</Link> 
+        ) : (<></>)
+        }
+        </Nav>        
+      </Navbar.Collapse>
+      <Navbar.Collapse className="justify-content-end">
+      { (route === 'authenticated' && user && user.attributes) ?
+        (
+          <>
+            <NavDropdown title={<span><span className="Header-provider-tag">{userController.getProviderTag(user) + ':'}</span> {user.attributes['email']}</span>} 
+            align="end"
+            className="Header-user-greeting">
+              <NavDropdown.Item onClick={() => profileButtonClickHandler()}>Profile</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item onClick={() => loginButtonClickHandler()}>
+                Sign Out
+              </NavDropdown.Item>
+            </NavDropdown>
+          
+            <UserProfileModal user={user} showProfile={showProfile} handleProfileClose={handleProfileClose}/>
+          </>
+        ) : 
+        (
+          <>
+          <Navbar.Text className="Header-user-greeting">
+            <span className="Header-welcome">Welcome</span>
+          </Navbar.Text>
+          <Navbar.Text>
+              <Button className="Header-button" size="sm" onClick={() => loginButtonClickHandler()}>{ loginButtonText }</Button>
+          </Navbar.Text>
+          </>
+        )
       }
-      </Nav>        
-    </Container>
-    <Container>
-    <Navbar.Collapse className="justify-content-end">
-    { (route === 'authenticated' && user && user.attributes) ?
-      (
-        <>
-          <NavDropdown title={<span><span className="Header-provider-tag">{userController.getProviderTag(user) + ':'}</span> {user.attributes['email']}</span>} 
-          align="end"
-          className="Header-user-greeting">
-            <NavDropdown.Item onClick={() => profileButtonClickHandler()}>Profile</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item onClick={() => loginButtonClickHandler()}>
-              Sign Out
-            </NavDropdown.Item>
-          </NavDropdown>
-        
-          <UserProfileModal user={user} showProfile={showProfile} handleProfileClose={handleProfileClose}/>
-        </>
-      ) : 
-      (
-        <>
-        <Navbar.Text className="Header-user-greeting">
-          <span className="Header-welcome">Welcome</span>
-        </Navbar.Text>
-        <Navbar.Text>
-            <Button className="Header-button" size="sm" onClick={() => loginButtonClickHandler()}>{ loginButtonText }</Button>
-        </Navbar.Text>
-        </>
-      )
-    }
-    </Navbar.Collapse>
-  </Container>
-  </Navbar>
+      </Navbar.Collapse>
+      </Container>
+    </Navbar>
   </div>
   );
 }
