@@ -1,0 +1,49 @@
+@import '../colors';
+
+.Workspace {
+  font-weight: normal;
+  padding: .5em;
+  text-align: left;
+}
+
+.Workspace-logo {
+  pointer-events: none;
+  border-radius: 10px;
+  max-height: 8em;
+}
+
+.Workspace-preamble {
+  font-size: .7em;
+  color: $base-alt-text-color;
+}
+
+.workspace-tabs {
+  font-size: .6em !important;
+  margin-bottom: 0 !important;
+  margin-top: 1em;
+}
+
+.workspace-tab {
+  min-height: 55vh;
+  border: 1px solid $tab-border-color;
+  border-top: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: .18em;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1em !important;
+  color: $base-text-color !important;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: $tab-background-color !important;
+  color: $base-text-color !important;
+}
+
+.nav-tabs .nav-link {
+  color: $base-alt-subtext-color !important;
+}
+

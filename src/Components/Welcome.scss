@@ -1,0 +1,32 @@
+@import '../colors';
+
+.Welcome {
+  font-size: calc(14px + 2vmin);
+  min-height: 100vh;
+  text-align: center;
+  padding: 3em;
+}
+
+.Welcome-message {
+  color: $base-alt-text-color !important;
+  font-weight: 200;
+  font-size: .8em;
+}
+
+.Welcome-intromessage {
+  color: $base-alt-text-color;
+  font-weight: 200;
+  font-size: .8em;
+}
+
+.Welcome-submessage {
+  color: $base-alt-subtext-color;
+  font-weight: 200;
+  font-size: .6em;
+}
+
+.Welcome-user {
+  font-size: 1em;
+  color: $base-theme-color;
+  font-weight: bolder;
+}

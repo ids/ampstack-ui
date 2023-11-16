@@ -1,0 +1,120 @@
+@import '../colors';
+
+.QuoteEditor {
+  padding-bottom: .3em;
+}
+
+.form-label {
+  font-size: .5em !important;
+  color: $base-alt-text-color;
+  max-height: .3em;
+}
+
+.QuoteEditor-add-button {
+  margin-top: -5px;
+}
+.QuoteEditor-list-quote-text {
+  font-size: .7em !important;
+  font-weight: lighter;
+  color: $base-text-color;
+  padding: 0;
+
+}
+.QuoteEditor-list-quote-author {
+  font-size: .6em !important;
+  color: $base-alt-text-color;
+  padding: 0;
+}
+
+.QuoteEditor-container {
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
+
+.QuoteEditor-listing {
+  max-height: 28vh !important;
+  overflow-y: scroll;
+  border-top: 1px solid $base-alt-subtext-color;
+  border-bottom: 1px solid $base-alt-subtext-color;
+  margin-bottom: 3em;
+}
+
+.QuoteEditor-listing-header {
+  display: block;
+  font-size: .6em !important;
+  color: $base-shaded-text-color;
+  margin-top: 0 !important;
+  margin-left: .1em;
+  padding: 5px;
+  width: 100%;
+}
+
+hr {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.QuoteEditor-list-edit-toolbar {
+  padding: .1em;
+  font-size: .7em;
+}
+
+.QuoteEditor-list-edit-button {
+  display: inline-block;
+  margin-right: .5em;
+  color: $base-alt-text-color !important;
+  cursor: pointer;
+  font-weight: lighter;
+}
+
+.QuoteEditor-list-edit-button:hover {
+  color: green !important;  
+}
+
+.QuoteEditor-list-delete-button {
+  color: $base-alt-text-color !important;  
+  cursor: pointer;
+  font-weight: lighter;
+}
+
+.QuoteEditor-list-delete-button:hover {
+  color: red !important;  
+}
+
+.alert {
+  font-size: .5em !important;
+  padding: .2em !important;
+  margin: 0 !important;
+  margin-left: .1em;
+}
+
+.alert p{
+  margin: 0 !important;
+  padding-left: .1em !important;
+}
+
+.alert .btn-close {
+  font-size: .5em !important;
+  padding: .2em !important;
+  margin-right: .3em !important;
+  margin-top: .4em !important;
+}
+
+.even-row {
+  background-color: $even-row-color !important;
+}
+
+.odd-row {
+  background-color: $odd-row-color !important;
+}
+
+.list-group {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.list-group-item {
+    padding: .5em !important;
+    padding-right: .75em !important;
+    padding-left: .75em !important;
+}

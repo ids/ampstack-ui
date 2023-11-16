@@ -1,0 +1,13 @@
+@import '../colors';
+
+.Login {
+  background-color: $background;
+  font-size: calc(10px + 2vmin);
+  color: $base-text-color;
+  min-height: 100vh;
+}
+
+.Login-idstudios {
+  color: $base-text-color !important;
+  font-weight: bolder;
+}
