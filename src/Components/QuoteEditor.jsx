@@ -64,7 +64,7 @@ export default function QuoteEditor({quoteList,
         <ListGroup.Item key={quote.quoteId} className={className}>
           <div>
             <div className="QuoteEditor-list-quote-text"><Markdown>{quote.text}</Markdown></div>
-            <div className="QuoteEditor-list-quote-author" > - <Markdown>{quote.author === "" ? "Anonymous" : quote.author}</Markdown></div>
+            <div className="QuoteEditor-list-quote-author" ><Markdown>{'&ndash; ' + (quote.author === "" ? "Anonymous" : quote.author)}</Markdown></div>
           </div>
           <div className="QuoteEditor-list-edit-toolbar">
           { user && quote.submittedBy === user.username ? (
