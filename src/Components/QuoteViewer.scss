@@ -24,8 +24,16 @@
 .quote-text {
   font-weight: lighter;
   color: $base-shaded-text-color;
-  font-size: 1.5em;
+  font-size: 3vw;
   display: inline-block;
+}
+
+.quote-text.med {
+  font-size: 2.5vw !important;
+}
+
+.quote-text.long {
+  font-size: 1.75vw !important;
 }
 
 .quote-author {
