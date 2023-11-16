@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
+import moment from 'moment';
 
 import './UserProfileModal.scss';
 import { UserController } from '../Controllers/User';
@@ -40,7 +41,7 @@ export default function UserProfileModal({user, showProfile, handleProfileClose}
         <Container>
           <Row>
             <Col><label>UserId:</label></Col>
-            <Col><span className="UserProfileModal-value">{ userProfile.userId }</span></Col>
+            <Col><span className="UserProfileModal-value-bold">{ userProfile.userId }</span></Col>
           </Row>
           <Row>
             <Col><label>Email:</label></Col>
@@ -56,11 +57,11 @@ export default function UserProfileModal({user, showProfile, handleProfileClose}
           </Row>
           <Row>
             <Col><label>Last Workspace Client IP:</label></Col>
-            <Col><span className="UserProfileModal-value">{ userProfile.lastWorkspaceIp }</span></Col>
+            <Col><span className="UserProfileModal-value-bold">{ userProfile.lastWorkspaceIp }</span></Col>
           </Row>
           <Row>
             <Col><label>Last Workspace Date:</label></Col>
-            <Col><span className="UserProfileModal-value">{ userProfile.lastWorkspaceDate }</span></Col>
+            <Col><span className="UserProfileModal-value">{ moment(userProfile.lastWorkspaceDate).calendar() }</span></Col>
           </Row>
         </Container>
       </Modal.Body>
