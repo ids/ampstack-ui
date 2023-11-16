@@ -22,7 +22,7 @@ export default function QuoteViewer({quoteList}) {
           <QuoteCarouselImage />
             <Carousel.Caption>
               <div className="quote-text"><Markdown className="markdown">{ quote.text }</Markdown></div>
-              <div className="quote-author">- {quote.author === "" ? "Anonymous" : quote.author}</div>
+              <div className="quote-author">- <Markdown className="markdown">{quote.author === "" ? "Anonymous" : quote.author}</Markdown></div>
             </Carousel.Caption>
           </Carousel.Item>    
       );
