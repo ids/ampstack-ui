@@ -34,7 +34,7 @@ export default function UserProfileModal({user, showProfile, handleProfileClose}
       size="lg"
       centered>
       <Modal.Header closeButton>
-        <Modal.Title>Profile: <span className="Header-user-profile-title">{user?.attributes['email']}</span></Modal.Title>
+        <Modal.Title>Profile: <span className="UserProfileModal-title">{user?.attributes['email']}</span></Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Container>
