@@ -36,6 +36,8 @@ export function UserController(API) {
         reject();
       }
   
+      console.log(user);
+      
       let payload = {
         body: {
           userId: user.username,
