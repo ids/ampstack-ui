@@ -194,6 +194,7 @@ export default function QuoteEditor({quoteList,
           <Form.Control 
             placeholder="Anonymous"
             onChange={(event) => quoteAuthorOnChangeEvent(event)}
+            maxLength="50"
             value={quoteAuthorValue}
             />
           { getQuoteAuthorAlert() }
