@@ -16,9 +16,9 @@
         <% } %>
       </ul>
       <% if(currentUser && currentUser.attributes['email']) { %>
-        <div class="nav-item dropdown d-flex">
-          <a class="nav-link dropdown-toggle Header-user-greeting" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span><span className="Header-provider-tag"><%= providerTag + ':' %></span> <%= currentUser.attributes['email'] %></span>
+        <div class="nav-item dropdown d-flex Header-user-greeting">
+          <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span><span class="Header-provider-tag"><%= providerTag + ':' %></span> <%= currentUser.attributes['email'] %></span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><a id="profileLink" class="dropdown-item" href="#">Profile</a></li>

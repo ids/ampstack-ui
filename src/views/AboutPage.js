@@ -13,13 +13,11 @@ export const AboutPageView = Backbone.View.extend({
   template: _.template(HTML_TEMPLATE),
 
   initialize: function() {
-      console.log("init footer");
-      console.log(this.$el);
+      console.info("init footer");
   },
 
   render: function() {
-    console.log("about page render");
-    console.log(this.$el.attr('id'));
+    console.info("about page render");
 
     this.$el.html(this.template({
       markdownHTML: DOMPurify.sanitize(marked.parse(ABOUT_MARKDOWN))

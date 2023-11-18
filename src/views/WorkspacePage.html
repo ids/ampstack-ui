@@ -1,1 +1,47 @@
-<h3>This is the Workspace</h3>
+<div class="Workspace">
+  <ul class="nav nav-tabs workspace-tabs" id="workspaceTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" 
+        id="quoteViewerTab" 
+        data-bs-toggle="tab" 
+        data-bs-target="#quoteViewerContent" 
+        type="button" 
+        role="tab" 
+        aria-controls="quoteViewerContent" 
+        aria-selected="true">Quote Viewer</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" 
+        id="quoteEditorTab" 
+        data-bs-toggle="tab" 
+        data-bs-target="#quoteEditorContent" 
+        type="button" 
+        role="tab" 
+        aria-controls="quoteEditorContent" 
+        aria-selected="true">Quote Editor</button>
+    </li>
+  </ul>
+
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="quoteViewerContent" role="tabpanel" aria-labelledby="quoteViewerTab" tabindex="0">
+      <div class="container-fluid workspace-tab">
+        <div class="row">
+          <div class="col">
+            <div id="quoteViewer">This is the Quote Viewer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="quoteEditorContent" role="tabpanel" aria-labelledby="quoteEditorTab" tabindex="1">
+      <div class="container-fluid workspace-tab">
+        <div class="row">
+          <div class="col">
+            <div id="quoteEditor">This is the Quote Editor</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

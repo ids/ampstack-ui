@@ -2,19 +2,19 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import _ from 'underscore';
 
-import './Footer.css';
-import HTML_TEMPLATE from './Footer.html?raw';
+import './QuoteEditor.css';
+import HTML_TEMPLATE from './QuoteEditor.html?raw';
 
-export const FooterView = Backbone.View.extend({
+export const QuoteEditorView = Backbone.View.extend({
 
   template: _.template(HTML_TEMPLATE),
 
   initialize: function() {
-      console.info("init footer");
+      console.info("init quote editor");
   },
 
   render: function() {
-    console.info("footer render");
+    console.info("quote editor render");
     this.$el.html(this.template({}));
   }
 });

@@ -20,8 +20,7 @@ export const LoginPageView = Backbone.View.extend({
   },
 
   initialize: function() {
-      console.log("init login page");
-      console.log(this.$el);
+    console.info("init login page");
   },
 
   signInButtonClickHandler: function(event) {
@@ -48,8 +47,7 @@ export const LoginPageView = Backbone.View.extend({
   },
 
   render: function() {
-    console.log("login page render");
-    console.log(this.$el.attr('id'));
+    console.info("login page render");
     this.$el.html(this.template({}));
   }
 });

@@ -1,4 +1,43 @@
-export function UserController(API) {
+
+async function _getUser(get, userId, callback, errorHandler) {
+  try {
+    const restOperation = get({ 
+      apiName: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
+      path: '/users/' + userId 
+    });
+    const response = await restOperation.response;
+    console.log('GET call getUser succeeded: ', response);
+    if(callback) {
+      callback(response);
+    }
+  } catch (error) {
+    console.log('GET call getUser failed: ', error);
+    if(errorHandler) { errorHandler(error); }
+  }
+}
+
+async function _registerUser(post, user, callback, errorHandler) {
+  try {
+    const restOperation = post({
+      apiName: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
+      path: '/users',
+      options: {
+        body: user
+      }
+    });
+    const response = await restOperation.response;
+    console.info('POST call registerUser succeeded: ', response);
+    if(callback) {
+      callback(response);
+    }
+  } catch (error) {
+    console.log('POST call registerUser failed: ', error);
+    if(errorHandler) { errorHandler(error); }
+  }
+}
+
+
+export function UserController(get, post, fetchAuthSession) {
 
   function getProviderType(user) {
     let providerType = "Default";
@@ -24,7 +63,7 @@ export function UserController(API) {
   }
   
   async function logIdToken() {
-    //console.log(`Bearer: ${(await Auth.currentSession()).getIdToken().getJwtToken()}`);
+    console.log(`Bearer: ${(await fetchAuthSession()).tokens.idToken }`);
   }
   
   function registerUser(user) {
@@ -37,21 +76,20 @@ export function UserController(API) {
       console.log(user);
       
       let payload = {
-        body: {
-          userId: user.username,
-          email: user.attributes['email']
-        }, 
-        headers: {} // OPTIONAL
+        userId: user.username,
+        email: user.attributes['email']
       };
   
-      API.post(import.meta.env.VITE_EXPRESS_ENDPOINT_NAME, "/users", payload).then((postedUser) => {
-        console.log("Registered User visit to Workspace:");
-        console.debug(postedUser);
-        logIdToken();
-        resolve(postedUser);
-      }).catch((err) => {
-        console.error("Post User API ERROR:");
-        console.error(err);
+      console.info("Register User:")
+      console.info(payload);
+      
+      const resp = _registerUser(post, payload, function(resp) {
+        console.log(resp);
+        resp.body.json().then((registeredUser) => {
+          console.log(registeredUser);  
+          resolve(registeredUser);  
+        });
+      }, function(err) {
         reject(err);
       });
     });
@@ -60,14 +98,14 @@ export function UserController(API) {
   function getRegisteredUser(userId) {
     return new Promise((resolve, reject) => {
   
-      API.get(import.meta.env.VITE_EXPRESS_ENDPOINT_NAME, "/users/" + userId).then((fetchedUser) => {
-        console.log(`Fetched User with userId [${userId}]:`);
-        console.debug(fetchedUser);
-        resolve(fetchedUser);
-      }).catch((err) => {
-        console.error("Get User API ERROR:");
-        console.error(err);
-        reject(err);
+      const resp = _getUser(get, userId, function(resp) {
+        console.log(resp);
+        resp.body.json().then((registeredUser) => {
+          console.log(registeredUser);  
+          resolve(registeredUser);  
+        }, function(err) {
+          reject(err);
+        });
       });
     });
   }

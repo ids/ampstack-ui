@@ -1,0 +1,55 @@
+.QuoteViewer {
+  text-align: center;
+  width: 100%;
+  vertical-align: middle;
+  padding-top: .5em;
+}
+
+.QuoteViewer-loading {
+  min-height: 40vh;
+  color: var(--base-theme-color);
+  vertical-align: middle;
+  display: inline-block;
+  padding-top: 5em;
+  font-size: .8em;
+}
+
+.QuoteViewer .carousel-caption {
+  bottom: 4em !important;
+  top: 4em !important;
+}
+
+.QuoteViewer .quote-text {
+  font-weight: lighter;
+  color: var(--base-shaded-text-color);
+  font-size: 3vw;
+  display: inline-block;
+}
+
+.QuoteViewer .quote-text {
+  font-weight: lighter;
+  color: var(--base-shaded-text-color);
+  font-size: 3vw;
+  display: inline-block;
+}
+
+.QuoteViewer .quote-text.med {
+  font-size: 2.5vw !important;
+}
+
+.QuoteViewer .quote-text.long {
+  font-size: 1.75vw !important;
+}
+
+.QuoteViewer .quote-author {
+  color: var(--base-alt-subtext-color);
+  font-size: .9em;
+}
+
+.QuoteViewer .quote-author p {
+  display: inline-block !important;
+}
+
+.QuoteViewer .quote-text p {
+  display: inline-block !important;
+}

@@ -9,6 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "./runtimeConfig": "./runtimeConfig.browser",
+      '~bootstrap': 'node_modules/bootstrap',
     }
   }
 })

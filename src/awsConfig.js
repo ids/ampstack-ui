@@ -1,4 +1,5 @@
 import { Amplify } from 'aws-amplify';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import awsconfig from './amplifyconfiguration.json';
 
 export default function awsConfig() {
@@ -39,25 +40,33 @@ export default function awsConfig() {
     updatedAwsConfig.aws_cloud_logic_custom = [];
   }
   
+  
   updatedAwsConfig.aws_cloud_logic_custom.push(
     {
       name: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
       endpoint: import.meta.env.VITE_EXPRESS_ENDPOINT,
       region: import.meta.env.VITE_EXPRESS_ENDPOINT_REGION,
-      custom_header: async () => {
-        // return { Authorization: 'token' };
-        // Alternatively, with Cognito User Pools use this:
-        //return { Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}` }
-        return { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` }
+      headers: async () => {
+        console.log("SETTING HEADERS");
+        return { Authorization: `Bearer ${(await fetchAuthSession()).tokens.idToken }` };
       }
     }
   );
-  
+
+
   console.log(`API: ${import.meta.env.VITE_EXPRESS_ENDPOINT_NAME}`);
   console.log(`API Endpoint: ${import.meta.env.VITE_EXPRESS_ENDPOINT}`);
   console.log(`API Endpoint Region: ${import.meta.env.VITE_EXPRESS_ENDPOINT_REGION}`);
   
-  Amplify.configure(updatedAwsConfig);
+  Amplify.configure(updatedAwsConfig, {
+    API: {
+      REST: {
+        headers: async () => {
+          return { 'Authorization': `Bearer ${(await fetchAuthSession()).tokens.idToken }` };
+        }
+      }
+    }
+  });
   
   console.log("AWS CONFIG:");
   console.log(updatedAwsConfig);

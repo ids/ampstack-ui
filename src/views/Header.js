@@ -2,7 +2,7 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import _ from 'underscore';
 import { Hub } from 'aws-amplify/utils';
-import { signIn, signInWithRedirect, signOut, getCurrentUser } from 'aws-amplify/auth';
+import { get, post, del } from "aws-amplify/api";
 import { UserController } from '../controllers/User.mjs';
 
 import './Header.css';
@@ -12,7 +12,7 @@ export const HeaderView = Backbone.View.extend({
 
   template: _.template(HTML_TEMPLATE),
   user: undefined,
-  userController: new UserController(),
+  userController: new UserController(get, post, del),
   
   events: {
     "click #signInButton":          "signInButtonHandler",
@@ -41,18 +41,15 @@ export const HeaderView = Backbone.View.extend({
   },
 
   initialize: function() {
-      console.log("init header");
-      console.log(this.$el);
+      console.info("init header");
   },
 
   render: function() {
-    var that = this;
-
-    console.log("header render");
+    console.info("header render");
 
     this.$el.html(this.template({
-      currentUser: that.user,
-      providerTag: that.user ? that.userController.getProviderTag(that.user) : undefined
+      currentUser: this.user,
+      providerTag: this.user ? this.userController.getProviderTag(this.user) : undefined
     }));
   }
 });
