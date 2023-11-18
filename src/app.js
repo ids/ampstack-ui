@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import _ from 'underscore';
+import { signIn, signInWithRedirect, signOut, getCurrentUser } from 'aws-amplify/auth';
 
 import { HeaderView } from './views/Header';
 import { FooterView } from './views/Footer';
@@ -18,24 +19,64 @@ export const App = Backbone.View.extend({
   className: "app",
   template: _.template(APP_HTML_TEMPLATE),
   currentView: undefined,
-  user: undefined,
-
-  /*
-  events: {
-    "click .icon":          "open",
-    "click .button.edit":   "openEditDialog",
-    "click .button.delete": "destroy"
-  },
-  */
+  currentUser: undefined,
 
   initialize: function() {
 
+    getCurrentUser().then((authUser) => {
+      this.user = authUser;
+    }).catch((ex) => {
+      if(ex.toString().indexOf("UserUnAuthenticatedException") > -1) {
+        console.info("The user has not yet authenticated");
+      } else {
+        console.warn("Error getting current user:");
+        console.error(ex);  
+      };
+    });
   },
 
-  onSignInHandler: function() {
+  showLoginPage: function() {
     if(this.currentView) { $(this.currentView.el).hide(); }
+
+    this.loginView = new LoginPageView({ el: "#app-login"});
+    this.loginView.signInCompleteCallback = (user) => {
+      console.log("sign in is complete");
+      this.onSignInComplete(user);
+    } 
+
+    this.loginView.signInWithGoogleCallback = (user) => {
+      console.log("sign in with google");
+
+    } 
+    this.loginView.signInWithAmazonCallback = (user) => {
+      console.log("sign in with amazon");
+    } 
+
+    this.loginView.render();
     this.currentView = this.loginView;
     $(this.currentView.el).show();
+  },
+
+  onSignInComplete: function(user) {
+    console.debug("sign in complete, we got a user from the login page");
+    this.currentUser = user;
+    console.log(this.currentUser);
+    this.render();
+    this.showWelcomePage();
+    $("#app-login").html("");
+  },
+
+  clearLoginPage: function() {
+    $("#app-login").html("");
+  },
+
+  onSignOutComplete: function() {
+    console.debug("sign out complete");
+    this.currentUser = undefined;
+    this.render();
+
+    this.showWelcomePage();
+    this.clearLoginPage();
   },
 
   showWelcomePage: function() {
@@ -57,29 +98,46 @@ export const App = Backbone.View.extend({
   },
 
   render: function() {
+
     console.debug("app render");
     
     this.$el.html(this.template({}));
 
     console.debug("rendering app sub views...");
     this.headerView = new HeaderView({ el: "#app-header"});
+    this.headerView.signInCallback = () => {
+      this.showLoginPage();
+    }; 
+
+    this.headerView.signOutCallback = () => {
+      var that = this;
+
+      signOut().then((resp) => {
+        console.info("signout response:");
+        console.info(resp);
+
+        that.onSignOutComplete();
+      }).catch((ex) => {
+        console.error("error signing out");
+        console.error(ex);
+
+        that.onSignOutComplete();
+      });
+    }; 
+
     this.footerView = new FooterView({ el: "#app-footer"});
 
     this.welcomeView = new WelcomePageView({ el: "#app-welcome"});
     this.aboutView = new AboutPageView({ el: "#app-about"});
     this.workspaceView = new WorkspacePageView({ el: "#app-workspace"});
 
-    this.loginView = new LoginPageView({ el: "#app-login"});
-
-    this.headerView.signInCallback = this.onSignInHandler;
-
-    this.headerView.user = this.user;
+    this.headerView.user = this.currentUser;
     this.headerView.render();
 
-    this.welcomeView.user = this.user;
+    this.welcomeView.user = this.currentUser;
     this.welcomeView.render();
 
-    this.workspaceView.user = this.user;
+    this.workspaceView.user = this.currentUser;
     this.workspaceView.render();
     
     this.aboutView.render();

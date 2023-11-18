@@ -8,6 +8,7 @@ import HTML_TEMPLATE from './WelcomePage.html?raw'
 export const WelcomePageView = Backbone.View.extend({
 
   template: _.template(HTML_TEMPLATE),
+  user: undefined,
 
   events: {
     "click .icon":          "open",
@@ -16,18 +17,14 @@ export const WelcomePageView = Backbone.View.extend({
   },
 
   initialize: function() {
-//    this.listenTo(this.model, "change", this.render);
       console.log("init welcome");
-      console.log(this.$el);
   },
 
   render: function() {
     console.log("welcome page render");
-    console.log(this.$el.attr('id'));
 
     this.$el.html(this.template({
-      javascriptLogo: '/javascript.svg',
-      viteLogo: '/vite.svg'
+      currentUser: this.user
     }));
   }
 });

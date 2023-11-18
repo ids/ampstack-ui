@@ -9,28 +9,29 @@
         <li class="nav-item">
           <a class="nav-link active Header-link" href="#about">About</a>
         </li>
-        <li class="nav-item">
+        <% if(currentUser) { %>
+          <li class="nav-item">
           <a class="nav-link Header-link" href="#workspace">Workspace</a>
         </li>
+        <% } %>
       </ul>
-      <div class="nav-item d-flex">
-        <span class="Header-welcome">Welcome</span>
-        <button class="btn btn-primary btn-sm signin-button">Sign In</button>
-      </div>
-
-     <!--
-      <div class="nav-item dropdown d-flex">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Dropdown
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </div>
-      -->
+      <% if(currentUser && currentUser.attributes['email']) { %>
+        <div class="nav-item dropdown d-flex">
+          <a class="nav-link dropdown-toggle Header-user-greeting" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span><span className="Header-provider-tag"><%= providerTag + ':' %></span> <%= currentUser.attributes['email'] %></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a id="profileLink" class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a id="signOutLink" class="dropdown-item" href="#">Sign Out</a></li>
+          </ul>
+        </div>
+      <% } else { %>
+        <div class="nav-item d-flex">
+          <span class="Header-welcome">Welcome</span>
+          <button id="signInButton" class="btn btn-primary btn-sm signin-button">Sign In</button>
+        </div>
+      <% }  %>
     </div>
   </div>
 </nav>

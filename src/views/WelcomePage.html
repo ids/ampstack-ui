@@ -1,7 +1,16 @@
 <div class="container-fluid Welcome">
   <img src="/AmpStack-Logo.drawio.svg" class="img-fluid rounded" />
-  <h1 class="Welcome-intromessage">Welcome to AmpStack HQ</h1>
-  <div class="Welcome-submessage">
-    Sign in for the <b>Demo</b> Workspace
-  </div>  
+  <% if(currentUser) { %>
+    <div class="Welcome-message">
+      Welcome back <span class="Welcome-user"> <%= currentUser.attributes['email'] %></span>
+    </div>
+    <div class="Welcome-submessage">
+      click <a href="#workspace">here</a> to go to the <b>Demo</b> Workspace...
+    </div>
+  <% } else { %>
+    <h1 class="Welcome-intromessage">Welcome to AmpStack HQ</h1>
+    <div class="Welcome-submessage">
+      Sign in for the <b>Demo</b> Workspace
+    </div>      
+  <% } %>
 </div>

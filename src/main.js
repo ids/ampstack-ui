@@ -2,15 +2,17 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import _ from 'underscore';
 import * as bootstrap from 'bootstrap'
-import { Amplify } from 'aws-amplify';
 //import { Hub } from 'aws-amplify/utils';
 //import { signInWithRedirect, signOut, getCurrentUser } from 'aws-amplify/auth';
-import config from './amplifyconfiguration.json';
+import awsConfig from './awsConfig.js'
+
+import './main.scss'
+
+awsConfig();
+
 import './main.scss'
 
 import { App } from './app';
-
-Amplify.configure(config);
 
 const app = new App({ el: "#app"});
 
@@ -34,6 +36,6 @@ const AppRouter = Backbone.Router.extend({
 // @ts-ignore
 $(document).ready(function() {
   app.render();
-  var appRouter = new AppRouter();
+  app.router = new AppRouter();
   Backbone.history.start();
 });
