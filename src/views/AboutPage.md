@@ -1,8 +1,3 @@
-import Image from 'react-bootstrap/Image';
-import Markdown from 'react-markdown'
-import './About.scss';
-
-const markdown = `
 
 ### Highlights:
 
@@ -24,17 +19,3 @@ The source code for the sample application is available for reference.
 [ampstack-api](https://github.com/ids/ampstack-api) repo contains the Node.js Serverless Express based REST API (Lambda handler), currently deployed using __sls deploy__.
 
 [ampstack-ui](https://github.com/ids/ampstack-ui) repo contains the Amplify React SPA implemented with Vite React + Bootstrap and deployed via CI/CD using __git push__.
-
-`;
-
-export default function About() {
-  
-  return (
-    <div className="About">
-        <h1>The Amp<span className="logo-stack">Stack</span></h1>
-        <p className="About-subtitle">A completely serverless web application platform.</p>
-        <Image className="About-diagram" src="/AmpStack-AmpStackAlt.drawio.svg" fluid rounded="true"/>
-        <Markdown className="About-message">{markdown}</Markdown>
-    </div>
-  );
-}

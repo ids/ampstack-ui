@@ -1,0 +1,71 @@
+<div class="container text-center Login-form">
+  <div class="row">
+    <div class="col">
+      <div>
+        <button type="button" class="btn btn-secondary Login-oauth-signin-button">Sign In with Google</button>
+      </div>
+      <button type="button" class="btn btn-secondary Login-oauth-signin-button">Sign In with Amazon</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ul class="nav nav-tabs">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" 
+            id="signInTab" 
+            data-bs-toggle="tab" 
+            data-bs-target="#signInContent" 
+            type="button" 
+            role="tab" 
+            aria-controls="signInContent" 
+            aria-selected="true">Sign In</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" 
+            id="signUpTab" 
+            data-bs-toggle="tab" 
+            data-bs-target="#signUpContent" 
+            type="button" 
+            role="tab" 
+            aria-controls="profile" 
+            aria-selected="false">Create Account</button>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="signInContent" role="tabpanel" aria-labelledby="signin-tab" tabindex="0">
+          <p>Sign in to your existing account</p>
+          <form data-bs-theme="dark">
+            <div class="mb-3">
+              <label for="signInEmailText" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="signInEmailText" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="signinPasswordText" class="form-label">Password</label>
+              <input type="password" class="form-control" id="signinPasswordText">
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="autoSignInCheck">
+              <label class="form-check-label" for="autoSignInCheck">Keep me signed in</label>
+            </div>
+            <button type="button" class="btn btn-primary">Sign In</button>
+          </form>          
+        </div>
+        <div class="tab-pane" id="signUpContent" role="tabpanel" aria-labelledby="signup-tab" tabindex="0">
+          <p>Create a new account</p>
+          <form data-bs-theme="dark" class="SignUp-form">
+            <div class="mb-3">
+              <label for="signUpEmailText" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="signUpEmail" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="signUpPasswordText" class="form-label">Password</label>
+              <input type="password" class="form-control" id="signUpPasswordText">
+            </div>
+            <button type="button" class="btn btn-primary">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

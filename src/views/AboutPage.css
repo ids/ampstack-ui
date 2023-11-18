@@ -1,8 +1,6 @@
-@import '../colors';
-
 .About {
   font-size: calc(10px + 2vmin);
-  color: $base-text-color;
+  color: var(--base-text-color);
   min-height: 100vh;
   text-align: left;
   padding: .5em;
@@ -10,7 +8,7 @@
 }
 
 .About-subtitle {
-  color: $base-theme-color;
+  color: var(--base-theme-color);
   font-size: .8em;
 }
 
@@ -22,10 +20,10 @@
 .About-message {
   padding: .5em;
   font-size: .65em;
-  color: $base-shaded-text-color;
+  color: var(--base-shaded-text-color);
 }
 
 h3 {
-  color: $base-theme-color !important;
+  color: var(--base-theme-color) !important;
   font-size: 1.5em !important;
 }

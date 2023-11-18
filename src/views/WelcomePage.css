@@ -1,32 +1,30 @@
-@import '../colors';
-
 .Welcome {
   font-size: calc(14px + 2vmin);
-  min-height: 100vh;
+  min-height: 75vh;
   text-align: center;
   padding: 3em;
 }
 
 .Welcome-message {
-  color: $base-alt-text-color !important;
+  color: var(--base-alt-text-color) !important;
   font-weight: 200;
   font-size: .8em;
 }
 
 .Welcome-intromessage {
-  color: $base-alt-text-color;
+  color: var(--base-alt-text-color);
   font-weight: 200;
   font-size: .8em;
 }
 
 .Welcome-submessage {
-  color: $base-alt-subtext-color;
+  color: var(--base-alt-subtext-color);
   font-weight: 200;
   font-size: .6em;
 }
 
 .Welcome-user {
   font-size: 1em;
-  color: $base-theme-color;
+  color: var(--base-theme-color);
   font-weight: bolder;
 }

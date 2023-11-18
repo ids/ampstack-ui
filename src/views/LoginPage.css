@@ -1,0 +1,50 @@
+.Login-form {
+  max-width: 70vh;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2em;
+  font-size: .9em;
+}
+
+.Login-form .form-label {
+  color: var(--base-alt-subtext-color);
+  font-size: .8em;
+}
+
+.Login-form .form-check {
+  color: var(--base-alt-subtext-color);
+  font-size: .8em;
+  text-align: left;
+}
+
+.Login-oauth-signin-button {
+  margin: .2em;
+  width: 100%;
+}
+
+.Login-form .nav {
+  margin-top: 1em;
+}
+
+.Login-form .nav-item {
+  font-size: .8em;
+  padding: .2em;
+}
+
+.Login-form .nav-link {
+  padding: .3em;
+  background-color: var(--tab-background-color) !important;
+  color: var(--base-shaded-text-color) !important;
+}
+
+.Login-form .nav-tabs .nav-link.active {
+  background-color: var(--background-alt);
+  color: var(--base-text-color) !important;
+}
+
+.Login-form .tab-content {
+  border: 1px solid var(--base-alt-subtext-color);
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 1em;
+}
