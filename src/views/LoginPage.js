@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import _ from 'underscore';
-import { signIn, signUp, confirmSignUp } from 'aws-amplify/auth';
+import { signIn, signUp, signOut, confirmSignUp } from 'aws-amplify/auth';
 
 import './LoginPage.css';
 import HTML_TEMPLATE from './LoginPage.html?raw';
@@ -63,7 +63,18 @@ export const LoginPageView = Backbone.View.extend({
     }
   },
 
+  showSignInPanel: function() {
+    console.log("showing signin panel");
+    $("#verifiedCodePanel").hide();
+    $("signInPanel").fadeIn();
+    $("#signInTab").trigger('click');
+    setTimeout(() => {
+      $("#signInEmailTextField").trigger('focus');
+    }, 250);
+  },
+
   showConfirmCodePanel: function(host) {
+    console.log("showing confirm panel");
     document.getElementById(host).parentNode.appendChild(document.getElementById('verifiedCodePanel'));
     $(`#${host}`).hide();
     $("#verifiedCodePanel").fadeIn();
@@ -84,6 +95,12 @@ export const LoginPageView = Backbone.View.extend({
       this.activeUsername = $("#signInEmailTextField").val();
       this.calculateNextStep(response.nextStep.signInStep, "signInPanel")
     }).catch((ex) => {
+      if(ex.message.indexOf("There is already a signed in user") > -1) {
+        signOut().then(() => {
+          this.showSignInPanel();
+          $("#signInButton").trigger('click');
+        });
+      }
       console.error(ex);
       $("#signInAlert").html(ex.message);
       $("#signInAlert").fadeIn();
@@ -104,10 +121,10 @@ export const LoginPageView = Backbone.View.extend({
         this.signInCompleteCallback?.(response.userId);
       }
       this.activeUsername = $("#signUpEmailTextField").val();
-      this.calculateNextStep(response.nextStep, "signUpPanel")
+      this.calculateNextStep(response.nextStep.signUpStep, "signUpPanel")
     }).catch((ex) => {
-      console.error(error);
-      $("#signUpAlert").html(error.message);
+      console.error(ex);
+      $("#signUpAlert").html(ex.message);
       $("#signUpAlert").fadeIn();
     });
   },
@@ -115,13 +132,13 @@ export const LoginPageView = Backbone.View.extend({
   confirmSignUpButtonClickHandler: function(event) {
     $("#verifiedCodeAlert").hide();
     confirmSignUp({
-      username: that.activeUsername,
+      username: this.activeUsername,
       confirmationCode: $("#verifiedCodeTextField").val()
     }).then((response) => {
       console.log(`isSignUpComplete: ${response.isSignUpComplete}`);
 
       if(response.isSignUpComplete) {
-        this.signInCompleteCallback?.();
+        this.showSignInPanel();
       }
       this.calculateNextStep(response.nextStep)
     }).catch((ex) => {

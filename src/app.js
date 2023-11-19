@@ -153,41 +153,47 @@ export const App = Backbone.View.extend({
     this.$el.html(this.template({}));
 
     setTimeout(() => {
-      getCurrentUser().then((authUser) => {
+      try {
+        getCurrentUser().then((authUser) => {
         
-        fetchUserAttributes().then((attributes) => {
-          that.currentUser = authUser;
-          that.currentUser.attributes = attributes;
+          fetchUserAttributes().then((attributes) => {
+            that.currentUser = authUser;
+            that.currentUser.attributes = attributes;
+    
+            console.info("Cognito User:")
+            console.info(that.currentUser);
+    
+            that.userController.logIdToken();
+    
+            console.info(`Registering User: ${that.currentUser.username}`);
+            that.userController.registerUser(that.currentUser).then((registeredUser) => {
+              console.log("User Registration SUCESS")
+              console.debug(registeredUser);
+            }).catch((regEx) => {
+              console.log("User Registration FAILED")
+              console.error(regEx);
+            });
   
-          console.info("Cognito User:")
-          console.info(that.currentUser);
-  
-          that.userController.logIdToken();
-  
-          console.info(`Registering User: ${that.currentUser.username}`);
-          that.userController.registerUser(that.currentUser).then((registeredUser) => {
-            console.log("User Registration SUCESS")
-            console.debug(registeredUser);
-          }).catch((regEx) => {
-            console.log("User Registration FAILED")
-            console.error(regEx);
+            that.renderChildViews();
+          }).catch((ex) => {
+            console.warn("Error getting current user attributes:");
+            console.error(ex);  
           });
-
-          that.renderChildViews();
+    
+  
         }).catch((ex) => {
-          console.warn("Error getting current user attributes:");
-          console.error(ex);  
+          if(ex.toString().indexOf("UserUnAuthenticatedException") > -1) {
+            console.info("The user has not yet authenticated");
+          } else {
+            console.warn("ERROR getting current user:");
+            console.error(ex);  
+          };
         });
   
-
-      }).catch((ex) => {
-        if(ex.toString().indexOf("UserUnAuthenticatedException") > -1) {
-          console.info("The user has not yet authenticated");
-        } else {
-          console.warn("ERROR getting current user:");
-          console.error(ex);  
-        };
-      });
+      } catch(ex) {
+        console.error("We caught the network!");
+        console.error(ex);
+      }
     }, 500);
 
     this.renderChildViews();
