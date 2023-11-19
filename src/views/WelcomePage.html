@@ -1,5 +1,19 @@
 <div class="container-fluid Welcome">
   <img src="/AmpStack-Logo.drawio.svg" class="img-fluid rounded" />
+  <div class="container">
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col logo-bar">
+        <img src="/vite.svg" class="logo" alt="Vite" />
+        <img src="/backbone.svg" class="logo backbone" alt="Backbone.js: The original minimal web framework" />
+        <img src="/javascript.svg" class="logo vanilla" alt="Vanilla JS" />
+      </div>
+      <div class="col">
+      </div>
+    </div>
+  </div>
+
   <% if(currentUser) { %>
     <div class="Welcome-message">
       Welcome back <span class="Welcome-user"> <%= currentUser.attributes['email'] %></span>

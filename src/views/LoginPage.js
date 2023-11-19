@@ -6,52 +6,6 @@ import { signIn, signUp, confirmSignUp } from 'aws-amplify/auth';
 import './LoginPage.css';
 import HTML_TEMPLATE from './LoginPage.html?raw';
 
-
-async function _signIn({ username, password, callback, errorHandler }) {
-  try {
-    const { isSignedIn, nextStep } = await signIn({ username, password });
-    callback?.(isSignedIn, nextStep);
-  } catch (error) {
-    console.error('error signing in', error);
-    errorHandler?.(error);
-  }
-}
-
-async function _signUp({ username, password, email, callback, errorHandler }) {
-  try {
-    const { isSignUpComplete, userId, nextStep } = await signUp({
-      username,
-      password,
-      options: {
-        userAttributes: {
-          email
-        },
-        // optional
-        autoSignIn: true // or SignInOptions e.g { authFlowType: "USER_SRP_AUTH" }
-      }
-    });
-
-    console.log(`NEW USER ID ${userId}`);
-    callback?.(isSignUpComplete, userId, nextStep);
-  } catch (error) {
-    console.log('error signing up:', error);
-    errorHandler?.(error);
-  }
-}
-
-async function _confirmSignUp({ username, confirmationCode, callback, errorHandler }) {
-  try {
-    const { isSignUpComplete, nextStep } = await confirmSignUp({
-      username,
-      confirmationCode
-    });
-    callback?.(isSignUpComplete, nextStep);
-  } catch (error) {
-    console.log('error confirming sign up', error);
-    errorHandler?.(error);
-  }
-}
-
 export const LoginPageView = Backbone.View.extend({
 
   template: _.template(HTML_TEMPLATE),
@@ -116,79 +70,64 @@ export const LoginPageView = Backbone.View.extend({
   },
 
   signInButtonClickHandler: function(event) {
-    const that = this;
-
     console.debug("sign in button clicked");
 
     $("#signInAlert").hide();
-    const resp = _signIn({
+    signIn({
       username: $("#signInEmailTextField").val(),
-      password: $("#signInPasswordTextField").val(),
-      callback: (isSignedIn, nextStep) => {
-        console.log(`isSignedIn: ${isSignedIn}`);
-        if(isSignedIn) {
-          this.signInCompleteCallback?.();
-        }
-        that.activeUsername = $("#signInEmailTextField").val();
-        that.calculateNextStep(nextStep.signInStep, "signInPanel")
-      },
-      errorHandler: (error) => {
-        console.error(error);
-        $("#signInAlert").html(error.message);
-        $("#signInAlert").fadeIn();
+      password: $("#signInPasswordTextField").val()
+    }).then((response) => {
+      console.log(`isSignedIn: ${response.isSignedIn}`);
+      if(response.isSignedIn) {
+        this.signInCompleteCallback?.();
       }
-    });
+      this.activeUsername = $("#signInEmailTextField").val();
+      this.calculateNextStep(response.nextStep.signInStep, "signInPanel")
+    }).catch((ex) => {
+      console.error(ex);
+      $("#signInAlert").html(ex.message);
+      $("#signInAlert").fadeIn();
+    })
   },
 
   signUpButtonClickHandler: function(event) {
-    const that = this;
-
     $("#signUpAlert").hide();
-    const resp = _signUp({
+    signUp({
       username: $("#signUpEmailTextField").val(),
       password: $("#signUpPasswordTextField").val(),
-      email: $("#signUpEmailTextField").val(),
-      callback: (isSignUpComplete, userId, nextStep) => {
-        console.log(`isSignUpComplete: ${isSignUpComplete}`);
-        console.log(`userId: ${userId}`);
+      email: $("#signUpEmailTextField").val()
+    }).then((response) => {
+      console.log(`isSignUpComplete: ${response.isSignUpComplete}`);
+      console.log(`userId: ${response.userId}`);
 
-        if(isSignUpComplete) {
-          this.signInCompleteCallback?.(userId);
-        }
-        that.activeUsername = $("#signUpEmailTextField").val();
-        that.calculateNextStep(nextStep, "signUpPanel")
-      },
-      errorHandler: (error) => {
-        console.error(error);
-        $("#signUpAlert").html(error.message);
-        $("#signUpAlert").fadeIn();
+      if(response.isSignUpComplete) {
+        this.signInCompleteCallback?.(response.userId);
       }
+      this.activeUsername = $("#signUpEmailTextField").val();
+      this.calculateNextStep(response.nextStep, "signUpPanel")
+    }).catch((ex) => {
+      console.error(error);
+      $("#signUpAlert").html(error.message);
+      $("#signUpAlert").fadeIn();
     });
-
-    //$("#createAccountPanel").hide();
-    //$("#verifiedCodePanel").fadeIn();
   },
 
   confirmSignUpButtonClickHandler: function(event) {
-    const that = this;
-
     $("#verifiedCodeAlert").hide();
-    const resp = _confirmSignUp({
+    confirmSignUp({
       username: that.activeUsername,
-      confirmationCode: $("#verifiedCodeTextField").val(),
-      callback: (isSignUpComplete, nextStep) => {
-        console.log(`isSignUpComplete: ${isSignUpComplete}`);
+      confirmationCode: $("#verifiedCodeTextField").val()
+    }).then((response) => {
+      console.log(`isSignUpComplete: ${response.isSignUpComplete}`);
 
-        if(isSignUpComplete) {
-          this.signInCompleteCallback?.();
-        }
-        that.calculateNextStep(nextStep)
-      },
-      errorHandler: (error) => {
-        console.error(error);
-        $("#verifiedCodeAlert").html(error.message);
-        $("#verifiedCodeAlert").fadeIn();
+      if(response.isSignUpComplete) {
+        this.signInCompleteCallback?.();
       }
+      this.calculateNextStep(response.nextStep)
+    }).catch((ex) => {
+      console.error(ex);
+      $("#verifiedCodeAlert").html(ex.message);
+      $("#verifiedCodeAlert").fadeIn();
     });
   },  
 
