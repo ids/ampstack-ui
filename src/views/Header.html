@@ -21,7 +21,7 @@
             <span><span class="Header-provider-tag"><%= providerTag + ':' %></span> <%= currentUser.attributes['email'] %></span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a id="profileLink" class="dropdown-item" href="#">Profile</a></li>
+            <li><a id="profileLink" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userProfileModal" href="#">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a id="signOutLink" class="dropdown-item" href="#">Sign Out</a></li>
           </ul>
@@ -35,3 +35,4 @@
     </div>
   </div>
 </nav>
+<div id="userProfileModalContainer"></div>

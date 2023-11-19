@@ -1,5 +1,7 @@
+import { get, post } from "aws-amplify/api";
+import { fetchAuthSession } from 'aws-amplify/auth';
 
-async function _getUser(get, userId, callback, errorHandler) {
+async function _getUser({userId, callback, errorHandler}) {
   try {
     const restOperation = get({ 
       apiName: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
@@ -16,15 +18,20 @@ async function _getUser(get, userId, callback, errorHandler) {
   }
 }
 
-async function _registerUser(post, user, callback, errorHandler) {
+async function _registerUser({user, callback, errorHandler}) {
   try {
+    
     const restOperation = post({
       apiName: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
       path: '/users',
       options: {
-        body: user
+        body: {
+          userId: user.username,
+          email: user.attributes['email']
+        }
       }
     });
+    
     const response = await restOperation.response;
     console.info('POST call registerUser succeeded: ', response);
     if(callback) {
@@ -37,7 +44,7 @@ async function _registerUser(post, user, callback, errorHandler) {
 }
 
 
-export function UserController(get, post, fetchAuthSession) {
+export function UserController() {
 
   function getProviderType(user) {
     let providerType = "Default";
@@ -83,14 +90,18 @@ export function UserController(get, post, fetchAuthSession) {
       console.info("Register User:")
       console.info(payload);
       
-      const resp = _registerUser(post, payload, function(resp) {
-        console.log(resp);
-        resp.body.json().then((registeredUser) => {
-          console.log(registeredUser);  
-          resolve(registeredUser);  
-        });
-      }, function(err) {
-        reject(err);
+      const resp = _registerUser({
+        user: payload,
+        callback: function(resp) {
+          console.log(resp);
+          resp.body.json().then((registeredUser) => {
+            console.log(registeredUser);  
+            resolve(registeredUser);  
+          });
+        }, 
+        errorHandler: function(err) {
+          reject(err);
+        }
       });
     });
   }
@@ -98,14 +109,20 @@ export function UserController(get, post, fetchAuthSession) {
   function getRegisteredUser(userId) {
     return new Promise((resolve, reject) => {
   
-      const resp = _getUser(get, userId, function(resp) {
-        console.log(resp);
-        resp.body.json().then((registeredUser) => {
-          console.log(registeredUser);  
-          resolve(registeredUser);  
-        }, function(err) {
+      const resp = _getUser({
+        userId: userId,
+        callback: function(resp) {
+          console.log(resp);
+          resp.body.json().then((registeredUser) => {
+            console.log(registeredUser);  
+            resolve(registeredUser);  
+          }).catch((ex) => {
+            reject(ex);
+          });
+        }, 
+        errorHandler: function(err) {
           reject(err);
-        });
+        }
       });
     });
   }

@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import _ from 'underscore';
-import { get, post, del } from "aws-amplify/api";
 
 import { QuoteViewerView } from './QuoteViewer';
 import { QuoteController } from '../controllers/Quote';
@@ -13,7 +12,7 @@ export const WorkspacePageView = Backbone.View.extend({
 
   template: _.template(HTML_TEMPLATE),
   quotes: [],
-  quoteController: QuoteController(get, post, del),
+  quoteController: QuoteController(),
 
   initialize: function() {
       console.log("init workspace");

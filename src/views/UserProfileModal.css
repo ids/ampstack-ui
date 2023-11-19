@@ -1,0 +1,26 @@
+.UserProfileModal {
+  text-align: left;
+  font-size: .8em;
+}
+
+.UserProfileModal label {
+  font-size: .8em;
+}
+
+.UserProfileModal-value {
+  color: var(--base-shaded-text-color);
+  font-size: .8em;
+}
+
+.UserProfileModal-value-bold {
+  color: var(--base-theme-color);
+  font-weight: bolder;
+  font-size: .8em;
+}
+
+.UserProfileModal-title {
+  font-weight: normal;
+  color: var(--base-shaded-text-color);
+  font-size: 1em;
+  padding-right: 1em;
+}

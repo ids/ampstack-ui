@@ -1,10 +1,13 @@
+import { get, post, del } from "aws-amplify/api";
 
-async function _loadAllQuotes(get, callback, errorHandler) {
+async function _loadAllQuotes({ callback, errorHandler }) {
   try {
+    
     const restOperation = get({ 
       apiName: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
       path: '/quotes/all' 
     });
+    
     const response = await restOperation.response;
     console.log('GET call succeeded: ', response);
     if(callback) {
@@ -16,8 +19,9 @@ async function _loadAllQuotes(get, callback, errorHandler) {
   }
 }
 
-async function _upsertQuote(post, quote, callback, errorHandler) {
+async function _upsertQuote({ quote, callback, errorHandler }) {
   try {
+    
     const restOperation = post({
       apiName: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
       path: '/quotes',
@@ -25,6 +29,7 @@ async function _upsertQuote(post, quote, callback, errorHandler) {
         body: quote
       }
     });
+    
     const response = await restOperation.response;
     console.info('POST call succeeded: ', response);
     if(callback) {
@@ -36,12 +41,14 @@ async function _upsertQuote(post, quote, callback, errorHandler) {
   }
 }
 
-async function _deleteQuote(del, quoteId, callback, errorHandler) {
+async function _deleteQuote({ quoteId, callback, errorHandler }) {
   try {
+    
     const restOperation = del({
       apiName: mport.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
       path: '/quotes/' + quoteId
     });
+    
     await restOperation.response;
     console.info('DELETE call succeeded');
     if(callback) {
@@ -53,33 +60,36 @@ async function _deleteQuote(del, quoteId, callback, errorHandler) {
   }
 }
 
-export function QuoteController(get, post, del) {
+export function QuoteController() {
 
   function loadAllQuotes() {
     return new Promise((resolve, reject) => {
       console.info(`Loading quotes from the API ${import.meta.env.VITE_EXPRESS_ENDPOINT_NAME}`);
 
-      const resp = _loadAllQuotes(get, function(resp) {
-        console.debug("load all quotes response:");
-        console.debug(resp);
-        
-        resp.body.json().then((allQuotes) => {
+      const resp = _loadAllQuotes({ 
+        callback: function(resp) {
+          console.debug("load all quotes response:");
+          console.debug(resp);
+          
+          resp.body.json().then((allQuotes) => {
 
-          console.debug("parsed quotes response:");
-          console.debug(allQuotes);
+            console.debug("parsed quotes response:");
+            console.debug(allQuotes);
 
-          allQuotes.sort(function(a,b){
-            // Turn your strings into dates, and then subtract them
-            // to get a value that is either negative, positive, or zero.
-            return new Date(b.submittedDate) - new Date(a.submittedDate);
+            allQuotes.sort(function(a,b){
+              // Turn your strings into dates, and then subtract them
+              // to get a value that is either negative, positive, or zero.
+              return new Date(b.submittedDate) - new Date(a.submittedDate);
+            });
+    
+            resolve(allQuotes);  
+          }).catch((ex) => {
+            reject(ex);
           });
-  
-          resolve(allQuotes);  
-        }).catch((ex) => {
-          reject(ex);
-        });
-      }, function (err) {
-        reject(err);
+        }, 
+        errorHandler: function (err) {
+          reject(err);
+        }
       });
     });
   }
@@ -89,20 +99,23 @@ export function QuoteController(get, post, del) {
       console.info("Upserting Quote:")
       console.info(quote);
       
-      const resp = _upsertQuote(post, quote, function(resp) {
+      const resp = _upsertQuote({
+        quote: quote, 
+        callback: function(resp) {
+          console.debug("upsertQuote response:")
+          console.debug(resp);
 
-        console.debug("upsertQuote response:")
-        console.debug(resp);
-
-        resp.body.json().then((savedQuote) => {
-          console.debug("parsed upsertQuote response:")
-          console.debug(savedQuote);  
-          resolve(savedQuote);  
-        }).catch((ex) => {
-          reject(ex);
-        });
-      }, function(err) {
-        reject(err);
+          resp.body.json().then((savedQuote) => {
+            console.debug("parsed upsertQuote response:")
+            console.debug(savedQuote);  
+            resolve(savedQuote);  
+          }).catch((ex) => {
+            reject(ex);
+          });
+        }, 
+        errorHandler: function(err) {
+          reject(err);
+        }
       });
     });
   }
@@ -111,11 +124,15 @@ export function QuoteController(get, post, del) {
     return new Promise((resolve, reject) => {
       console.info(`Delete Quote: ${quoteId}`);
 
-      const resp = _deleteQuote(del, quoteId, function(resp) {
-        console.log(resp);
-        resolve(resp);
-      }, function(err) {
-        reject(err);
+      const resp = _deleteQuote({
+        quoteId: quoteId, 
+        callback: function(resp) {
+          console.log(resp);
+          resolve(resp);
+        }, 
+        errorHandler: function(err) {
+          reject(err);
+        }
       });
     });
   }

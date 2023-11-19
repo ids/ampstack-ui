@@ -1,9 +1,8 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import _ from 'underscore';
-import { Hub } from 'aws-amplify/utils';
-import { get, post, del } from "aws-amplify/api";
 import { UserController } from '../controllers/User.mjs';
+import { UserProfileModalView } from './UserProfileModal';
 
 import './Header.css';
 import HTML_TEMPLATE from './Header.html?raw';
@@ -12,21 +11,17 @@ export const HeaderView = Backbone.View.extend({
 
   template: _.template(HTML_TEMPLATE),
   user: undefined,
-  userController: new UserController(get, post, del),
+  userProfileModalView: undefined,
+  userController: new UserController(),
   
   events: {
     "click #signInButton":          "signInButtonHandler",
-    "click #profileLink":           "profileLinkHandler",
     "click #signOutLink":           "signOutLinkHandler",
 
   },
 
   signInCallback: undefined,
   signOutCallback: undefined,
-
-  profileLinkHandler: function() {
-    alert("not yet implemented");
-  },
 
   signOutLinkHandler: function() {
     if(this.signOutCallback) {
@@ -45,11 +40,27 @@ export const HeaderView = Backbone.View.extend({
   },
 
   render: function() {
+    var that = this;
     console.info("header render");
 
     this.$el.html(this.template({
       currentUser: this.user,
       providerTag: this.user ? this.userController.getProviderTag(this.user) : undefined
     }));
+
+    if(this.user) {
+      setTimeout(() => {
+        console.info(`Fetching registered user data for ${that.user.username}`);
+        this.userController.getRegisteredUser(this.user.username).then((registeredUser) => {
+          that.userProfileModalView = new UserProfileModalView({ el: "#userProfileModalContainer"});
+          that.userProfileModalView.user = that.user;
+          that.userProfileModalView.userProfile = registeredUser;
+          that.userProfileModalView.render();    
+        }).catch((ex) => {
+          console.error("ERROR getting registered user:");
+          console.error(ex);
+        });  
+      }, 500);
+    }
   }
 });

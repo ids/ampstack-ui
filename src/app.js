@@ -35,7 +35,7 @@ export const App = Backbone.View.extend({
   template: _.template(APP_HTML_TEMPLATE),
   currentView: undefined,
   currentUser: undefined,
-  userController: new UserController(get, post, fetchAuthSession),
+  userController: new UserController(),
 
   initialize: function() {
   },
@@ -162,6 +162,15 @@ export const App = Backbone.View.extend({
   
           that.userController.logIdToken();
   
+          console.info(`Registering User: ${that.currentUser.username}`);
+          that.userController.registerUser(that.currentUser).then((registeredUser) => {
+            console.log("User Registration SUCESS")
+            console.debug(registeredUser);
+          }).catch((regEx) => {
+            console.log("User Registration FAILED")
+            console.error(regEx);
+          });
+
           that.renderChildViews();
         }).catch((ex) => {
           console.warn("Error getting current user attributes:");

@@ -1,0 +1,69 @@
+<div class="UserProfileModal">
+  <div id="userProfileModal" class="modal modal-lg" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">
+            Profile: <span class="UserProfileModal-title"><%= user?.attributes['email'] %></span>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <label>UserId:</label>
+              </div>
+              <div class="col">
+                <span class="UserProfileModal-value-bold"><%= userProfile.userId %></span>                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label>Email:</label>
+              </div>
+              <div class="col">
+                <span class="UserProfileModal-value"><%= userProfile.email %></span>                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label>Provider Type:</label>
+              </div>
+              <div class="col">
+                <span class="UserProfileModal-value"><%= userProfile.providerType %></span>                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label>Provider Id:</label>
+              </div>
+              <div class="col">
+                <span class="UserProfileModal-value"><%= userProfile.providerId %></span>                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label>Last Workspace IP:</label>
+              </div>
+              <div class="col">
+                <span class="UserProfileModal-value-bold"><%= userProfile.lastWorkspaceIp %></span>                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label>Last Workspace Date:</label>
+              </div>
+              <div class="col">
+                <span class="UserProfileModal-value"><%= moment(userProfile.lastWorkspaceDate).calendar() %></span>                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
