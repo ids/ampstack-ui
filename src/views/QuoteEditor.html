@@ -1,1 +1,76 @@
-<p>This is the Quote Editor</p>
+<div class="QuoteEditor">
+  <form data-bs-theme="dark" class="fluid">
+    <div class="row">
+      <div class="col-10">
+        <label for="quoteEditorTextField" class="form-label">Quote (markdown is supported)</label>
+        <input type="textarea" 
+          rows="2" 
+          maxlength="200"  
+          id="quoteEditorTextField"
+          placeholder="Say something profound"
+          class="form-control">  
+        <div id="quoteTextBlankAlert" 
+          style="display: none;" 
+          class="alert alert-primary alert-dismissible fade show" 
+          role="alert">
+          The quote must not be blank
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="col-2">
+        <label for="quoteCancelEditButton"></label>
+        <button type="button" 
+          id="quoteCancelEditButton"
+          style="display: none;"
+          class="btn btn-secondary btn-sm QuoteEditor-add-button form-control">Cancel</button>            
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10">
+        <label for="quoteEditorAuthorField" class="form-label">Author</label>
+        <input type="text" 
+          maxlength="60" 
+          id="quoteEditorAuthorField"
+          placeholder="Anonymous"
+          class="form-control" >  
+        <div id="quoteAuthorBlankAlert" 
+          style="display: none;" 
+          class="alert alert-warning alert-dismissible fade show" 
+          role="alert">
+          If the Author is not specified the quote will be attributed to Anonymous.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="col-2">
+        <label for="quoteAddbutton"></label>
+        <button type="button" 
+          id="quoteAddButton"
+          class="btn btn-primary btn-sm QuoteEditor-add-button form-control">Add Quote</button>      
+      </div>
+    </div>
+  </form>
+  <hr />
+  <ul class="list-group QuoteEditor-listing">
+    <% quotes.map((quote, index) => { 
+
+      let className = "list-group-item d-flex justify-content-between align-items-start";
+      if(index % 2 == 0) {
+         className += " even-row"; 
+      } else { 
+        className += " odd-row"
+      }
+      %>
+      <li class="<%= className %>" id="quoteListItem<%= index %>">
+        <div>
+          <div class="QuoteEditor-list-quote-text"><%= markdown(quote.text) %></Markdown></div>
+          <div class="QuoteEditor-list-quote-author"><%= markdown('&ndash; ' + (quote.author === "" ? "Anonymous" : quote.author)) %></Markdown></div>
+        </div>
+        <div class="QuoteEditor-list-edit-toolbar">
+        <% if(user && quote.submittedBy === user.username) { %> 
+          <a class="QuoteEditor-list-edit-button bi bi-pencil" data-quote-id="<%= quote.quoteId %>" ></a>
+          <a class="QuoteEditor-list-delete-button bi bi-trash" data-quote-id="<%= quote.quoteId %>" ></a>
+        <% } %>
+      </li>
+    <% }); %>
+  </ul>
+</div>

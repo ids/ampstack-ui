@@ -17,26 +17,21 @@ export const HeaderView = Backbone.View.extend({
   events: {
     "click #signInButton":          "signInButtonHandler",
     "click #signOutLink":           "signOutLinkHandler",
-
   },
 
   signInCallback: undefined,
   signOutCallback: undefined,
 
   signOutLinkHandler: function() {
-    if(this.signOutCallback) {
-      this.signOutCallback();
-    }
+    this.signOutCallback?.();
   },
 
   signInButtonHandler: function() {
-    if(this.signInCallback) {
-      this.signInCallback();
-    }
+    this.signInCallback?.();
   },
 
   initialize: function() {
-      console.info("init header");
+    console.info("init header");
   },
 
   render: function() {

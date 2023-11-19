@@ -25,9 +25,7 @@ export const LoginPageView = Backbone.View.extend({
 
   signInButtonClickHandler: function(event) {
     console.debug("sign in button clicked");
-    if(this.signInCompleteCallback) {
-      this.signInCompleteCallback({ attributes: { email: "daffy@superduck.com", username: "daffy0001" } });
-    }
+    this.signInCompleteCallback?.({ attributes: { email: "daffy@superduck.com", username: "daffy0001" } });
   },
 
   signUpButtonClickHandler: function(event) {
@@ -35,15 +33,11 @@ export const LoginPageView = Backbone.View.extend({
   },
 
   signInWithGoogleButtonClickHandler: function(event) {
-    if(this.signInWithGoogleCallback) {
-      this.signInWithGoogleCallback();
-    }
+    this.signInWithGoogleCallback?.();
   },
 
   signInWithAmazonButtonClickHandler: function(event) {
-    if(this.signInWithAmazonCallback) {
-      this.signInWithAmazonCallback();
-    }
+    this.signInWithAmazonCallback?.();
   },
 
   render: function() {

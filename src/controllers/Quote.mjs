@@ -10,12 +10,10 @@ async function _loadAllQuotes({ callback, errorHandler }) {
     
     const response = await restOperation.response;
     console.log('GET call succeeded: ', response);
-    if(callback) {
-      callback(response);
-    }
+    callback?.(response);
   } catch (error) {
     console.log('GET call failed: ', error);
-    if(errorHandler) { errorHandler(error); }
+    errorHandler?.(error); 
   }
 }
 
@@ -32,12 +30,10 @@ async function _upsertQuote({ quote, callback, errorHandler }) {
     
     const response = await restOperation.response;
     console.info('POST call succeeded: ', response);
-    if(callback) {
-      callback(response);
-    }
+    callback?.(response);
   } catch (error) {
     console.log('POST call failed: ', error);
-    if(errorHandler) { errorHandler(error); }
+    errorHandler?.(error); 
   }
 }
 
@@ -45,18 +41,16 @@ async function _deleteQuote({ quoteId, callback, errorHandler }) {
   try {
     
     const restOperation = del({
-      apiName: mport.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
+      apiName: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
       path: '/quotes/' + quoteId
     });
     
     await restOperation.response;
     console.info('DELETE call succeeded');
-    if(callback) {
-      callback(response);
-    }
+    callback?.();
   } catch (error) {
     console.error('DELETE call failed: ', error);
-    if(errorHandler) { errorHandler(error); }
+    errorHandler?.(error); 
   }
 }
 
@@ -126,9 +120,8 @@ export function QuoteController() {
 
       const resp = _deleteQuote({
         quoteId: quoteId, 
-        callback: function(resp) {
-          console.log(resp);
-          resolve(resp);
+        callback: function() {
+          resolve();
         }, 
         errorHandler: function(err) {
           reject(err);

@@ -186,7 +186,7 @@ export const App = Backbone.View.extend({
           console.error(ex);  
         };
       });
-    });
+    }, 500);
 
     this.renderChildViews();
   }

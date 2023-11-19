@@ -9,12 +9,10 @@ async function _getUser({userId, callback, errorHandler}) {
     });
     const response = await restOperation.response;
     console.log('GET call getUser succeeded: ', response);
-    if(callback) {
-      callback(response);
-    }
+    callback?.(response);
   } catch (error) {
     console.log('GET call getUser failed: ', error);
-    if(errorHandler) { errorHandler(error); }
+    errorHandler?.(error); 
   }
 }
 
@@ -25,21 +23,16 @@ async function _registerUser({user, callback, errorHandler}) {
       apiName: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
       path: '/users',
       options: {
-        body: {
-          userId: user.username,
-          email: user.attributes['email']
-        }
+        body: user
       }
     });
     
     const response = await restOperation.response;
     console.info('POST call registerUser succeeded: ', response);
-    if(callback) {
-      callback(response);
-    }
+    callback?.(response);
   } catch (error) {
     console.log('POST call registerUser failed: ', error);
-    if(errorHandler) { errorHandler(error); }
+    errorHandler?.(error); 
   }
 }
 
@@ -126,7 +119,6 @@ export function UserController() {
       });
     });
   }
-
 
   return {
     getProviderType,

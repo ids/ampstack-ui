@@ -3,6 +3,10 @@
   font-size: .8em;
 }
 
+.UserProfileModal .modal{
+  margin-top: 3em;
+}
+
 .UserProfileModal label {
   font-size: .8em;
 }
