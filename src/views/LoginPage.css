@@ -48,3 +48,25 @@
   border-bottom-left-radius: 5px;
   padding: 1em;
 }
+
+.Login-form .signin-panel {
+  text-align: left;
+}
+
+.Login-form .signin-panel p {
+  width: 100%;
+  text-align: center;
+  font-size: .8em;
+}
+
+.Login-form .signin-panel .bottom-bar {
+  padding-top: 1em;
+  text-align: center;
+}
+
+.Login-form .alert {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+

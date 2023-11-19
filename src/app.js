@@ -44,9 +44,9 @@ export const App = Backbone.View.extend({
     if(this.currentView) { $(this.currentView.el).hide(); }
 
     this.loginView = new LoginPageView({ el: "#app-login"});
-    this.loginView.signInCompleteCallback = (user) => {
+    this.loginView.signInCompleteCallback = (userId) => {
       console.debug("sign in is complete");
-      this.onSignInComplete(user);
+      this.onSignInComplete(userId);
     } 
     this.loginView.signInWithGoogleCallback = (user) => {
       console.debug("sign in with google");
@@ -75,12 +75,14 @@ export const App = Backbone.View.extend({
 
   onSignInComplete: function(user) {
     console.debug("sign in complete, we got a AmpStack user from the custom login page");
-    this.currentUser = user;
-    console.log(this.currentUser);
-    this.clearLoginPage();
-    this.renderChildViews();
+//    this.currentUser = user;
+//    console.log(this.currentUser);
+//    this.clearLoginPage();
+//    this.renderChildViews();
 
-    this.router.navigate("/");
+//    this.router.navigate("/");
+
+    window.location.reload();
   },
 
   clearLoginPage: function() {
@@ -115,7 +117,7 @@ export const App = Backbone.View.extend({
 
       signOut().then((resp) => {
         console.info("signout response:");
-        console.info(resp);
+        window.location.reload();
       }).catch((ex) => {
         console.error("error signing out");
         console.error(ex);

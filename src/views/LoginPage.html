@@ -2,14 +2,14 @@
   <div class="row">
     <div class="col">
       <div>
-        <button id="signInWithGoogleButton" type="button" class="btn btn-secondary Login-oauth-signin-button">Sign In with Google</button>
+        <button id="signInWithGoogleButton" type="button" class="btn btn-primary Login-oauth-signin-button">Sign In with Google</button>
       </div>
-      <button id="signInWithAmazonButton" type="button" class="btn btn-secondary Login-oauth-signin-button">Sign In with Amazon</button>
+      <button id="signInWithAmazonButton" type="button" class="btn btn-primary Login-oauth-signin-button">Sign In with Amazon</button>
     </div>
   </div>
   <div class="row">
     <div class="col">
-      <ul class="nav nav-tabs">
+      <ul class="nav nav-tabs nav-justified">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" 
             id="signInTab" 
@@ -32,37 +32,94 @@
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane active" id="signInContent" role="tabpanel" aria-labelledby="signin-tab" tabindex="0">
-          <p>Sign in to your existing account</p>
-          <form data-bs-theme="dark">
-            <div class="mb-3">
-              <label for="signInEmailText" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="signInEmailText" aria-describedby="emailHelp">
-            </div>
-            <div class="mb-3">
-              <label for="signinPasswordText" class="form-label">Password</label>
-              <input type="password" class="form-control" id="signinPasswordText">
-            </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="autoSignInCheck">
-              <label class="form-check-label" for="autoSignInCheck">Keep me signed in</label>
-            </div>
-            <button id="signInButton" type="button" class="btn btn-primary">Sign In</button>
-          </form>          
+        <div class="tab-pane active signin-panel" id="signInContent" role="tabpanel" aria-labelledby="signin-tab" tabindex="0">
+          <div id="signInPanel">
+            <p>Sign in to your existing account</p>
+            <form data-bs-theme="dark">
+              <div class="mb-12">
+                <label for="signInEmailTextField" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="signInEmailTextField" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-12">
+                <label for="signInPasswordTextField" class="form-label">Password</label>
+                <input type="password" class="form-control" id="signInPasswordTextField">
+              </div>
+              <div class="mb-12">
+                <div id="signInAlert" 
+                  style="display: none;" 
+                  class="alert alert-info alert-dismissible fade show" 
+                  role="alert">
+                  Something went wrong with sign in!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+              <div class="mb-12 bottom-bar">
+                <button id="signInButton" type="button" class="btn btn-primary">Sign In</button>
+              </div>
+            </form>            
+          </div>
         </div>
         <div class="tab-pane" id="signUpContent" role="tabpanel" aria-labelledby="signup-tab" tabindex="0">
-          <p>Create a new account</p>
-          <form data-bs-theme="dark" class="SignUp-form">
-            <div class="mb-3">
-              <label for="signUpEmailText" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="signUpEmail" aria-describedby="emailHelp">
+          <div id="signUpPanel" class="signin-panel">
+            <p>Create a new account</p>
+            <form data-bs-theme="dark" class="SignUp-form">
+              <div class="mb-12">
+                <label for="signUpEmailTextField" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="signUpEmailTextField" aria-describedby="emailHelp">
+                <div id="signUpEmailAlert" 
+                  style="display: none;" 
+                  class="alert alert-info alert-dismissible fade show" 
+                  role="alert">
+                  The email is invalid!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+              <div class="mb-12">
+                <label for="signUpPasswordTextField" class="form-label">Password</label>
+                <input type="password" class="form-control" id="signUpPasswordTextField">
+                <div id="signUpPasswordAlert" 
+                  style="display: none;" 
+                  class="alert alert-primary alert-dismissible fade show" 
+                  role="alert">
+                  The password is no good!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+              <div class="mb-12">
+                <label for="signUpPasswordMatchTextField" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="signUpPasswordMatchTextField">
+                <div id="signUpPasswordMatchAlert" 
+                  style="display: none;" 
+                  class="alert alert-info alert-dismissible fade show" 
+                  role="alert">
+                  The password is no good!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+              <div class="mb-12 bottom-bar">
+                <button id="signUpButton" type="button" class="btn btn-primary">Create Account</button>
+              </div>
+            </form> 
+          </div>
+          <div id="verifiedCodePanel" class="signin-panel" style="display:none;"">
+            <p>Please enter the verification code that was sent to your email address.</p>
+            <form data-bs-theme="dark" class="SignUp-form">
+              <div class="mb-12">
+                <label for="verifiedCodeTextField" class="form-label">Verification Code</label>
+                <input type="text" class="form-control" id="verifiedCodeTextField">
+                <div id="verifiedCodeAlert" 
+                  style="display: none;" 
+                  class="alert alert-danger alert-dismissible fade show" 
+                  role="alert">
+                  The code is invalid!
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </div>
+              <div class="mb-12 bottom-bar">
+                <button id="verifyCodeButton" type="button" class="btn btn-success">Verify Code</button>
+              </div>
+            </form>   
             </div>
-            <div class="mb-3">
-              <label for="signUpPasswordText" class="form-label">Password</label>
-              <input type="password" class="form-control" id="signUpPasswordText">
-            </div>
-            <button id="signUpButton" type="button" class="btn btn-primary">Create Account</button>
-          </form>
         </div>
       </div>
     </div>
