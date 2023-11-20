@@ -35,6 +35,6 @@ The source code for the sample application is available for reference. [See the 
 - The __backbone__ project required several Amplify environments to be able to connect to a single backend API.  As Amplify Cognito user pools are tied to the redirect URLs, it is not possible to share them among Amplify applications, however multiple Cognito user pools may be associated to a single API authorizer, as discussed further in the [ampstack-api README](https://github.com/ids/ampstack-api)
 
 ### The React UI
-The original __React__ implementation of this Amplify UI:
+The original __React__ implementation of this `AmpStack UI``:
 
 [The React Edition](https://ampstack.aws.idstudios.io)
