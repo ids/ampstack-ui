@@ -182,6 +182,7 @@ export default function QuoteEditor({quoteList,
             aria-describedby="quoteTextBlock"
             onChange={(event) => quoteTextOnChangeEvent(event)}
             ref={firstFocusReference} 
+            maxLength="200"
             placeholder="Say something mystical" />
           { getQuoteTextAlert() }
         </Form.Group>
@@ -193,6 +194,7 @@ export default function QuoteEditor({quoteList,
           <Form.Control 
             placeholder="Anonymous"
             onChange={(event) => quoteAuthorOnChangeEvent(event)}
+            maxLength="50"
             value={quoteAuthorValue}
             />
           { getQuoteAuthorAlert() }

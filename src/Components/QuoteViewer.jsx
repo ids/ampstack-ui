@@ -17,11 +17,18 @@ export default function QuoteViewer({quoteList}) {
     }
 
     quotes.items.map((quote, index) => {
+      let quoteTextCSS = "quote-text";
+      if(quote.text.length > 60 && quote.text.length <= 100) {
+        quoteTextCSS += " med";
+      } else if(quote.text.length > 100) {
+        quoteTextCSS += " long";
+      }
+
       content.push(
           <Carousel.Item key={index} >
           <QuoteCarouselImage />
             <Carousel.Caption>
-              <div className="quote-text"><Markdown className="markdown">{ quote.text }</Markdown></div>
+              <div className={quoteTextCSS}><Markdown className="markdown">{ quote.text }</Markdown></div>
               <div className="quote-author"><Markdown className="markdown">{'&ndash; ' + (quote.author === "" ? "Anonymous" : quote.author)}</Markdown></div>
             </Carousel.Caption>
           </Carousel.Item>    

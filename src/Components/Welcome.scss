@@ -4,13 +4,14 @@
   font-size: calc(14px + 2vmin);
   min-height: 100vh;
   text-align: center;
-  padding: 3em;
+  padding: 2em;
 }
 
 .Welcome-message {
   color: $base-alt-text-color !important;
   font-weight: 200;
   font-size: .8em;
+  padding-top: 1em;
 }
 
 .Welcome-intromessage {
@@ -29,4 +30,32 @@
   font-size: 1em;
   color: $base-theme-color;
   font-weight: bolder;
+}
+
+.logo {
+  height: 3em;
+  padding: .5em;
+  will-change: filter;
+  transition: filter 300ms;
+  opacity: .8;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+  opacity: 1;
+
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #f7df1eaa);
+  opacity: 1;
+
+}
+.logo-bar {
+  white-space: nowrap;
+}
+
+.tag-line {
+  white-space: nowrap;
+  color: $base-alt-subtext-color !important;
+  text-align: center;
+  font-size: .8em !important;
 }
