@@ -2,7 +2,7 @@
   font-size: calc(14px + 2vmin);
   min-height: 75vh;
   text-align: center;
-  padding: 3em;
+  padding: 1.5em;
 }
 
 .Welcome-message {
@@ -12,13 +12,13 @@
 }
 
 .Welcome-intromessage {
-  color: var(--base-alt-text-color);
+  color: var(--base-text-color);
   font-weight: 200;
   font-size: .8em;
 }
 
 .Welcome-submessage {
-  color: var(--base-alt-subtext-color);
+  color: var(--base-alt-text-color);
   font-weight: 200;
   font-size: .6em;
 }
@@ -30,8 +30,8 @@
 }
 
 .logo {
-  height: 5em;
-  padding: 1.5em;
+  height: 3em;
+  padding: .5em;
   will-change: filter;
   transition: filter 300ms;
   opacity: .8;
@@ -53,4 +53,12 @@
 }
 .logo-bar {
   white-space: nowrap;
+  text-align: center;
+}
+
+.tag-line {
+  white-space: nowrap;
+  color: var(--base-alt-subtext-color) !important;
+  text-align: center;
+  font-size: .8em !important;
 }

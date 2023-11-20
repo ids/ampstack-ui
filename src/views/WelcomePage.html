@@ -2,14 +2,23 @@
   <img src="/AmpStack-Logo.drawio.svg" class="img-fluid rounded" />
   <div class="container">
     <div class="row">
-      <div class="col">
+      <div class="col-12">
       </div>
-      <div class="col logo-bar">
+    </div>
+    <div class="row">
+      <div class="col-12 tag-line">
+        <span class="edition">The <a href="https://github.com/ids/ampstack-ui/tree/backbone">Backbone VanillaJS</a> Edition</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 logo-bar">
         <img src="/vite.svg" class="logo" alt="Vite" />
         <img src="/backbone.svg" class="logo backbone" alt="Backbone.js: The original minimal web framework" />
         <img src="/javascript.svg" class="logo vanilla" alt="Vanilla JS" />
       </div>
-      <div class="col">
+    </div>
+    <div class="row">
+      <div class="col-12">
       </div>
     </div>
   </div>
@@ -19,8 +28,12 @@
       Welcome back <span class="Welcome-user"> <%= currentUser.attributes['email'] %></span>
     </div>
     <div class="Welcome-submessage">
-      click <a href="#workspace">here</a> to go to the <b>Demo</b> Workspace...
+      click <a href="#workspace">Workspace</a> to go to the <b>Demo</b> Workspace...
     </div>
+    <div class="Welcome-submessage">
+      click <a href="#about">About</a> for more details.
+    </div>
+
   <% } else { %>
     <h1 class="Welcome-intromessage">Welcome to AmpStack HQ</h1>
     <div class="Welcome-submessage">
