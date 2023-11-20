@@ -93,6 +93,8 @@ export const QuoteEditorView = Backbone.View.extend({
       quote.submittedDate = new Date();
   
       this.upsertQuoteCallback(quote);
+    } else {
+      console.debug("Quote Form is not valid");
     }
   },
 

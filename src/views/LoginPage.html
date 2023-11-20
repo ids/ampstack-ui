@@ -46,16 +46,14 @@
                 <label for="signInPasswordTextField" class="form-label">Password</label>
                 <input type="password" class="form-control" id="signInPasswordTextField">
               </div>
-              <div class="mb-12">
+              <div class="mb-12 bottom-bar">
                 <div id="signInAlert" 
                   style="display: none;" 
-                  class="alert alert-info alert-dismissible fade show" 
+                  class="alert alert-light alert-dismissible fade show" 
                   role="alert">
                   Something went wrong with sign in!
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-              </div>
-              <div class="mb-12 bottom-bar">
                 <button id="signInButton" type="button" class="btn btn-primary">Sign In</button>
               </div>
             </form>            
@@ -68,37 +66,22 @@
               <div class="mb-12">
                 <label for="signUpEmailTextField" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="signUpEmailTextField" aria-describedby="emailHelp">
-                <div id="signUpEmailAlert" 
-                  style="display: none;" 
-                  class="alert alert-info alert-dismissible fade show" 
-                  role="alert">
-                  The email is invalid!
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
               </div>
               <div class="mb-12">
                 <label for="signUpPasswordTextField" class="form-label">Password</label>
                 <input type="password" class="form-control" id="signUpPasswordTextField">
-                <div id="signUpPasswordAlert" 
-                  style="display: none;" 
-                  class="alert alert-primary alert-dismissible fade show" 
-                  role="alert">
-                  The password is no good!
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
               </div>
               <div class="mb-12">
                 <label for="signUpPasswordMatchTextField" class="form-label">Confirm Password</label>
                 <input type="password" class="form-control" id="signUpPasswordMatchTextField">
-                <div id="signUpPasswordMatchAlert" 
-                  style="display: none;" 
-                  class="alert alert-info alert-dismissible fade show" 
-                  role="alert">
-                  The password is no good!
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
               </div>
               <div class="mb-12 bottom-bar">
+                <div id="signUpAlert" 
+                  style="display: none;" 
+                  class="alert alert-light alert-dismissible fade show" 
+                  role="alert">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <button id="signUpButton" type="button" class="btn btn-primary">Create Account</button>
               </div>
             </form> 

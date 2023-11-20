@@ -20,8 +20,8 @@ The source code for the sample application is available for reference.
 
 [ampstack-ui](https://github.com/ids/ampstack-ui) repo contains the Amplify React SPA implemented with Vite React + Bootstrap and deployed via CI/CD using __git push__.
 
-- The [dev](https://github.com/ids/ampstack-ui/tree/dev) branch is deployed to the [master](https://github.com/ids/ampstack-ui/tree/master) environment using __pull requests__.
+- The [dev branch](https://github.com/ids/ampstack-ui/tree/dev) is deployed to the [master branch](https://github.com/ids/ampstack-ui/tree/master) environment using __pull requests__.  This represents a basic Dev->Prod workflow.
 
-[ampstack-ui (backbone)](https://github.com/ids/ampstack-ui/tree/backbone) repo contains the Amplify SPA implemented with Vite VanillaJS + Backbone + Bootstrap, illustrating how to use Amplify Auth and API in a VanillaJS project.
+[ampstack-ui (backbone)](https://github.com/ids/ampstack-ui/tree/backbone) __branch__ contains the Amplify SPA implemented with __Vite VanillaJS + Backbone + Bootstrap__, illustrating how to use Amplify Auth and API in a VanillaJS project. There are no pre-built authentication UI libraries for VanillaJS, so you either have to offload to the hosted UI option, or build your own flow.  This example builds a basic flow from the Amplify authentication API.
 
 - The __backbone__ project required several Amplify environments to be able to connect to a single backend API.  As Amplify Cognito user pools are tied to the redirect URLs, it is not possible to share them among Amplify applications, however multiple Cognito user pools may be associated to a single API authorizer, as discussed further in the [ampstack-api README](https://github.com/ids/ampstack-api)

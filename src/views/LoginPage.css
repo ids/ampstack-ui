@@ -65,8 +65,11 @@
 }
 
 .Login-form .alert {
-  margin-top: 1em;
+  margin-top: 0em;
   margin-bottom: 1em;
+  padding: .3em;
+  font-size: .8em;
+  text-align: center;
 }
 
 

@@ -34,16 +34,22 @@
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
-  opacity: .6;
+  opacity: .8;
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
+  opacity: 1;
+
 }
 .logo.backbone:hover {
   filter: drop-shadow(0 0 2em #6956c9aa);
+  opacity: 1;
+
 }
 .logo.vanilla:hover {
   filter: drop-shadow(0 0 2em #f7df1eaa);
+  opacity: 1;
+
 }
 .logo-bar {
   white-space: nowrap;

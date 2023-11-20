@@ -28,6 +28,8 @@ const unsubscribe = Hub.listen('auth', ({ payload }) => {
   }
 });
 
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
 export const App = Backbone.View.extend({
 
   tagName: "app",
@@ -82,7 +84,7 @@ export const App = Backbone.View.extend({
 
 //    this.router.navigate("/");
 
-    window.location.reload();
+    window.location.href = "/";;
   },
 
   clearLoginPage: function() {
@@ -117,7 +119,7 @@ export const App = Backbone.View.extend({
 
       signOut().then((resp) => {
         console.info("signout response:");
-        window.location.reload();
+        window.location.href = "/";
       }).catch((ex) => {
         console.error("error signing out");
         console.error(ex);
@@ -146,13 +148,9 @@ export const App = Backbone.View.extend({
     this.footerView.render();
   },
 
-  render: function() {
-    var that = this;
-
-    console.debug("app render");    
-    this.$el.html(this.template({}));
-
-    setTimeout(() => {
+  loadAuthorizedUser: function() {
+    const that = this;
+    return new Promise((resolve, reject) => {
       try {
         getCurrentUser().then((authUser) => {
         
@@ -169,32 +167,56 @@ export const App = Backbone.View.extend({
             that.userController.registerUser(that.currentUser).then((registeredUser) => {
               console.log("User Registration SUCESS")
               console.debug(registeredUser);
+              resolve();
             }).catch((regEx) => {
               console.log("User Registration FAILED")
-              console.error(regEx);
+              reject(regEx);
             });
-  
+
             that.renderChildViews();
           }).catch((ex) => {
             console.warn("Error getting current user attributes:");
-            console.error(ex);  
+            reject(ex);  
           });
-    
-  
+
         }).catch((ex) => {
-          if(ex.toString().indexOf("UserUnAuthenticatedException") > -1) {
-            console.info("The user has not yet authenticated");
-          } else {
-            console.warn("ERROR getting current user:");
-            console.error(ex);  
-          };
+          reject(ex);  
         });
-  
+
       } catch(ex) {
         console.error("We caught the network!");
-        console.error(ex);
+        reject(ex);
       }
-    }, 500);
+    });
+  },
+
+  render: function() {
+    const that = this;
+
+    console.debug("app render");    
+    this.$el.html(this.template({}));
+
+    this.loadAuthorizedUser().then(() => {
+      console.info("Load Authorized User Succeeded!");
+    }).catch((ex) => {
+      if(ex.toString().indexOf("UserUnAuthenticatedException") > -1) {
+        console.info("The user has not yet authenticated");
+      } else {
+
+        console.error("Load Authorized User Failed 1st Time, One Retry!");
+        console.error(ex);
+  
+        wait(1000).then(() => {
+          this.loadAuthorizedUser().then(() => {
+            console.info("Load Authorized User Succeeded!");
+          }).catch((ex) => {
+            console.error("Load Authorized User Failed 2x, Stop the Madness!");
+            console.error(ex);
+            window.location.href = "/";
+          });
+        });  
+      };
+    });
 
     this.renderChildViews();
   }

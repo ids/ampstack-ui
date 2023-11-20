@@ -82,6 +82,14 @@ export const LoginPageView = Backbone.View.extend({
 
   signInButtonClickHandler: function(event) {
     console.debug("sign in button clicked");
+    
+    if($("#signInEmailTextField").val() === "") {
+      $("#signInAlert").html("An email address must be entered!");
+      $("#signInAlert").fadeIn();
+      $("#signInEmailTextField").trigger('focus');
+      setTimeout(() => { $("#signInAlert").fadeOut(); } , 5000);
+      return;
+    }
 
     $("#signInAlert").hide();
     signIn({
@@ -108,6 +116,23 @@ export const LoginPageView = Backbone.View.extend({
   },
 
   signUpButtonClickHandler: function(event) {
+
+    if($("#signUpEmailTextField").val() === "") {
+      $("#signUpAlert").html("An email address must be entered!");
+      $("#signUpAlert").fadeIn();
+      $("#signUpEmailTextField").trigger('focus');
+      setTimeout(() => { $("#signUpAlert").fadeOut(); } , 5000);
+      return;
+    }
+
+    if($("#signUpPasswordTextField").val() !== $("#signUpPasswordMatchTextField").val()) {
+      $("#signUpAlert").html("The passwords do not match!");
+      $("#signUpAlert").fadeIn();
+      $("#signUpPasswordMatchTextField").trigger('focus');
+      setTimeout(() => { $("#signUpAlert").fadeOut(); } , 5000);
+      return;
+    }
+
     $("#signUpAlert").hide();
     signUp({
       username: $("#signUpEmailTextField").val(),
