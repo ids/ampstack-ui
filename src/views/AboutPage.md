@@ -1,4 +1,12 @@
 
+### Benefits:
+
+- __No servers to manage!__
+- Development environments cost pennies a day
+- Fully scalable simply by increasing DynamoDB WCU and RCU allocations
+- Simple development model (once you grok it)
+- Integrated CI/CD
+
 ### Highlights:
 
 - Leverages the __Amplify__ platform for distribution of the __React SPA__ to a __CloudFront CDN__ with __custom DNS__ and __free TLS__ from AWS.  
@@ -14,7 +22,7 @@
 - Development costs are minimal due to serverless nature.
 
 ### Source
-The source code for the sample application is available for reference.
+The source code for the sample application is available for reference. [See the README files for more technical details](https://github.com/ids/ampstack-ui/blob/master/README.md).
 
 [ampstack-api](https://github.com/ids/ampstack-api) repo contains the Node.js Serverless Express based REST API (Lambda handler), currently deployed using __sls deploy__.
 
