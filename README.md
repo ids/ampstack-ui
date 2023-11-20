@@ -125,3 +125,10 @@ VITE_EXPRESS_ENDPOINT_REGION=us-east-1
 For deployments the `VITE_EXPRESS_ENDPOINT` variables are added to the Amplify environment ENV variables via the Console.
 
 > __Note__: The __VITE_*__ environment variables are only populated during Vite's build phase, you need to do a redeploy after changing them for the changes to take effect.
+
+## API Endpoint
+Make sure to update the __VITE_EXPRESS_ENDPOINT__ in the Amplify UI __Environment Variables__ correctly for the associated backend.  This will be an endpoint URL provided by your [Amplify API](https://github.com/ids/ampstack-api) `sls deploy`.
+
+```
+VITE_EXPRESS_ENDPOINT=https://XXXXXXXXX.execute-api.us-east-1.amazonaws.com/dev
+```
