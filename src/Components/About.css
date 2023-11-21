@@ -15,7 +15,7 @@
 .About-diagram {
   margin-left: auto;
   margin-right: auto;
-  height: 70vh;
+  height: 70vh !important;
   margin-bottom: 1.5em;
 }
 
