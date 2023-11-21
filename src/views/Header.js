@@ -34,6 +34,10 @@ export const HeaderView = Backbone.View.extend({
     console.info("init header");
   },
 
+  setActiveTab(tabName) {
+    $(`#${tabName}Tab`).addClass('active');
+  },
+
   render: function() {
     var that = this;
     console.info("header render");
@@ -43,8 +47,29 @@ export const HeaderView = Backbone.View.extend({
       providerTag: this.user ? this.userController.getProviderTag(this.user) : undefined
     }));
 
+    $("#aboutLink").on("click", (event) => {
+      $("#workspaceTab").removeClass('active');
+      $("#aboutTab").addClass('active');
+    });
+
+    $("#workspaceLink").on("click", (event) => {
+      $("#aboutTab").removeClass('active');
+      $("#workspaceTab").addClass('active');
+    });
+
+    console.log(location.href);
+    if(location.href.indexOf("#about") > -1) {
+      $("#aboutTab").addClass('active');
+    } else if (location.href.indexOf("#workspace") > -1) {
+      $("#workspaceTab").addClass('active');
+    } else {
+      $("#aboutTab").removeClass('active');
+      $("#workspaceTab").removeClass('active');
+    }
+
     if(this.user) {
       setTimeout(() => {
+        // fetching the latest user registration in DynamoDB for the profile modal
         console.info(`Fetching registered user data for ${that.user.username}`);
         this.userController.getRegisteredUser(this.user.username).then((registeredUser) => {
           that.userProfileModalView = new UserProfileModalView({ el: "#userProfileModalContainer"});

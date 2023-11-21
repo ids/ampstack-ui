@@ -45,23 +45,28 @@
 }
 
 .Header-link {
-  padding-top: .2em;
-  font-size: 12pt;
-  font-weight: lighter;
-  margin-top: .1em;
+  padding-top: .2em !important;
+  font-size: 12pt !important;
+  font-weight: normal !important;
+  margin-top: .1em !important;
+}
+
+.Header-link.active a {
+  color: var(--base-theme-color) !important;
+  font-weight: bold !important;
 }
 
 .Header-link a {
-  color: var(--base-shaded-text-color);
-  font-style: normal;
+  color: var(--base-shaded-text-color) !important;
+  font-weight: normal !important;
   text-decoration: none;
-  padding-right: .5em;
-  padding-left: .5em;
+  padding-right: .5em !important;
+  padding-left: .5em !important;
 }
 
 .Header-link a:hover {
   color: var(--base-link-color) !important;
-  font-style: normal;
+  font-weight: normal !important;
 }
 
 .Header-provider-tag {

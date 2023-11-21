@@ -103,10 +103,12 @@ export const App = Backbone.View.extend({
 
   showAboutPage: function() {
     this.setCurrentView(this.aboutView);
+    this.headerView.setActiveTab('about');
   },
 
   showWorkspace: function() {
     this.setCurrentView(this.workspaceView);
+    this.headerView.setActiveTab('workspace');
   },
 
   renderChildViews: function() {
