@@ -15,8 +15,12 @@
 
   --base-theme-color: #e14a5f;
   --base-theme-color: #f97672;
+  --base-theme-color: #007acc;
+
+  --base-theme-color: #a79d9d;
+  --base-alt-theme-color: #f97672;
   
-  --base-link-color: var(--base-theme-color);
+  --base-link-color: #007acc;
   --base-header-color: var(--base-theme-color);
   
   --base-text-color: #FFFFFF;
@@ -38,6 +42,8 @@
   
   --odd-row-color: #303030;
   --even-row-color: #514e4e;
+
+  --bs-code-color: #007acc !important;
 }
 
 a {

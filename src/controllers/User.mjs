@@ -62,7 +62,15 @@ export function UserController() {
   }
   
   function getRegisteredUser(userId) {
-    return _getUser(userId);
+    return new Promise((resolve, reject) => {
+      _getUser(userId).then((resp) => {
+        resp.body.json().then((registeredUser) => {
+          console.info("Unpacked Registered User:");
+          console.log(registeredUser);  
+          resolve(registeredUser);  
+        });
+      });
+    });
   }
 
   function registerUser(user) {

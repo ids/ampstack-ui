@@ -76,6 +76,8 @@ export const HeaderView = Backbone.View.extend({
           that.userProfileModalView.user = that.user;
           that.userProfileModalView.userProfile = registeredUser;
           that.userProfileModalView.render();    
+          console.info("rendered user profile");
+          console.debug(registeredUser);
         }).catch((ex) => {
           console.error("ERROR getting registered user:");
           console.error(ex);

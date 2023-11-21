@@ -19,6 +19,11 @@ export const AboutPageView = Backbone.View.extend({
   render: function() {
     console.info("about page render");
 
+    marked.use({
+      pedantic: false,
+      gfm: true,
+    });
+
     this.$el.html(this.template({
       markdownHTML: DOMPurify.sanitize(marked.parse(ABOUT_MARKDOWN))
     }));

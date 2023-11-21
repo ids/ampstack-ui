@@ -6,7 +6,7 @@
 }
 
 .Welcome-message {
-  color: var(--base-alt-text-color) !important;
+  color: var(--base-text-color) !important;
   font-weight: 200;
   font-size: .8em;
 }
@@ -25,7 +25,7 @@
 
 .Welcome-user {
   font-size: 1em;
-  color: var(--base-theme-color);
+  color: var(--base-alt-theme-color);
   font-weight: bolder;
 }
 

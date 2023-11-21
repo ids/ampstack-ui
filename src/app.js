@@ -208,13 +208,13 @@ export const App = Backbone.View.extend({
         console.error("Load Authorized User Failed 1st Time, One Retry!");
         console.error(ex);
   
-        wait(1000).then(() => {
+        wait(500).then(() => {
           this.loadAuthorizedUser().then(() => {
             console.info("Load Authorized User Succeeded!");
           }).catch((ex) => {
             console.error("Load Authorized User Failed 2x, Stop the Madness!");
             console.error(ex);
-            window.location.href = "/";
+            window.location.reload();
           });
         });  
       };
