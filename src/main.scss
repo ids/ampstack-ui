@@ -80,6 +80,12 @@ h1 {
   color: var(--base-text-color);
 }
 
+.logo-stack {
+  font-weight: bolder;
+  color: var(--logo-stack-color) !important;
+}
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: var(--base-text-color);
