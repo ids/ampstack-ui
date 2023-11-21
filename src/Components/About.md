@@ -9,8 +9,8 @@
 
 ### Highlights:
 
-- Leverages the __Amplify__ platform for distribution of the __React SPA__ to a __CloudFront CDN__ with __custom DNS__ and __free TLS__ from AWS.  
-- Uses a __Serverless ExpressJS REST API__ backend linked to the same __AWS Cognito__ user pool for shared authentication. 
+- Leverages the [Amplify](https://docs.amplify.aws) platform for distribution of the __React SPA__ to a __CloudFront CDN__ with __custom DNS__ and __free TLS__ from AWS.  
+- Uses a [Serverless Framework](https://www.serverless.com/framework/docs) __ExpressJS REST API__ backend linked to the same __AWS Cognito__ user pool for shared authentication. 
 - Enables the __Amplify React SPA__ to be a front-end component of a micro-service architecture. 
 
 ### Notes:

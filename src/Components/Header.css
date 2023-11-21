@@ -1,12 +1,10 @@
-@import '../colors';
-
 .Header {
   font-weight: bolder;
 }
 
 .Header-welcome {
   font-weight: normal;
-  color: $base-theme-color !important;
+  color: var(--base-theme-color) !important;
   vertical-align: middle;
 }
 
@@ -18,17 +16,17 @@
   font-weight: normal;
   vertical-align: middle;
   font-size: 16pt;
-  color: $base-text-color !important;
+  color: var(--base-text-color) !important;
 }
 
 .Header-stack {
   font-weight: bolder;
-  color: $logo-stack-color !important;
+  color: var(--logo-stack-color) !important;
 }
 
 .Header-user-greeting {
   font-weight: normal;
-  color: $base-shaded-text-color;
+  color: var(--base-shaded-text-color);
   font-size: .65em;
   vertical-align: middle;
   padding-right: 1em;
@@ -40,7 +38,7 @@
 }
 
 .Header-custom-nav {
-  background-color: $background !important;
+  background-color: var(--background) !important;
   border-bottom: 1px solid silver;
 }
 
@@ -52,7 +50,7 @@
 }
 
 .Header-link a {
-  color: $base-shaded-text-color;
+  color: var(--base-shaded-text-color);
   font-style: normal;
   text-decoration: none;
   padding-right: .5em;
@@ -60,13 +58,13 @@
 }
 
 .Header-link a:hover {
-  color: $base-link-color !important;
+  color: var(--base-link-color) !important;
   font-style: normal;
 }
 
 .Header-provider-tag {
   font-weight: bolder;
-  color: $base-theme-color !important;
+  color: var(--base-theme-color) !important;
 }
 
 .Header-about {
@@ -74,6 +72,6 @@
 }
 
 .modal-content {
-  background-color: $background !important;
-  color: $base-alt-text-color !important;
+  background-color: var(--background) !important;
+  color: var(--base-alt-text-color) !important;
 }

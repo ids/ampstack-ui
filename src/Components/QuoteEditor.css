@@ -1,12 +1,10 @@
-@import '../colors';
-
 .QuoteEditor {
   padding-bottom: .3em;
 }
 
 .form-label {
   font-size: .5em !important;
-  color: $base-alt-text-color;
+  color: var(--base-alt-text-color);
   max-height: .3em;
 }
 
@@ -16,13 +14,13 @@
 .QuoteEditor-list-quote-text {
   font-size: .7em !important;
   font-weight: lighter;
-  color: $base-text-color;
+  color: var(--base-text-color);
   padding: 0;
 
 }
 .QuoteEditor-list-quote-author {
   font-size: .6em !important;
-  color: $base-alt-text-color;
+  color: var(--base-alt-text-color);
   padding: 0;
 }
 
@@ -35,15 +33,15 @@
 .QuoteEditor-listing {
   max-height: 28vh !important;
   overflow-y: scroll;
-  border-top: 1px solid $base-alt-subtext-color;
-  border-bottom: 1px solid $base-alt-subtext-color;
+  border-top: 1px solid var(--base-alt-subtext-color);
+  border-bottom: 1px solid var(--base-alt-subtext-color);
   margin-bottom: 3em;
 }
 
 .QuoteEditor-listing-header {
   display: block;
   font-size: .6em !important;
-  color: $base-shaded-text-color;
+  color: var(--base-shaded-text-color);
   margin-top: 0 !important;
   margin-left: .1em;
   padding: 5px;
@@ -63,7 +61,7 @@ hr {
 .QuoteEditor-list-edit-button {
   display: inline-block;
   margin-right: .5em;
-  color: $base-alt-text-color !important;
+  color: var(--base-alt-text-color) !important;
   cursor: pointer;
   font-weight: lighter;
 }
@@ -73,7 +71,7 @@ hr {
 }
 
 .QuoteEditor-list-delete-button {
-  color: $base-alt-text-color !important;  
+  color: var(--base-alt-text-color) !important;  
   cursor: pointer;
   font-weight: lighter;
 }
@@ -83,15 +81,15 @@ hr {
 }
 
 .alert {
-  font-size: .5em !important;
-  padding: .2em !important;
+  font-size: .6em !important;
+  padding: .3em !important;
   margin: 0 !important;
   margin-left: .1em;
 }
 
 .alert p{
   margin: 0 !important;
-  padding-left: .1em !important;
+  padding-left: .3em !important;
 }
 
 .alert .btn-close {
@@ -102,11 +100,11 @@ hr {
 }
 
 .even-row {
-  background-color: $even-row-color !important;
+  background-color: var(--even-row-color) !important;
 }
 
 .odd-row {
-  background-color: $odd-row-color !important;
+  background-color: var(--odd-row-color) !important;
 }
 
 .list-group {

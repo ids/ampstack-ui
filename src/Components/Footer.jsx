@@ -1,5 +1,5 @@
-import './Footer.scss';
 import Image from 'react-bootstrap/Image';
+import './Footer.css';
 
 export default function Footer() {
   

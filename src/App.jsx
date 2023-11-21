@@ -7,7 +7,7 @@ import Workspace from './Components/Workspace';
 import { Layout } from './Layout';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import './App.scss';
+import './App.css';
 
 function AmpStackRoutes() {
 

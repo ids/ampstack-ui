@@ -1,18 +1,16 @@
-@import 'colors';
-
 .App {
-  background-color: $background;
+  background-color: var(--background);
   font-size: calc(10px + 2vmin);
-  color: $base-text-color;
+  color: var(--base-text-color);
 }
 
 .data-amplify-authenticator[data-state=inactive],
 .amplify-tabs-item[data-state=inactive] {
-  background-color: $amplify-login-tabs-color !important;
+  background-color: var(--amplify-login-tabs-color) !important;
 }
 
 .amplify-tabs-item:hover {
-  color: $amplify-login-tabs-hover-color !important;
+  color: var(--amplify-login-tabs-hover-color) !important;
 }
 
 #root {

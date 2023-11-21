@@ -1,0 +1,11 @@
+.Login {
+  background-color: var(--background);
+  font-size: calc(10px + 2vmin);
+  color: var(--base-text-color);
+  min-height: 100vh;
+}
+
+.Login-idstudios {
+  color: var(-base-text-color) !important;
+  font-weight: bolder;
+}

@@ -1,7 +1,7 @@
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
-import './Welcome.scss';
+import './Welcome.css';
 
 export default function Welcome() {
   

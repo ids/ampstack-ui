@@ -2,7 +2,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import QuoteCarouselImage from './QuoteCarouselImage';
 import Markdown from 'react-markdown'
 
-import './QuoteViewer.scss';
+import './QuoteViewer.css';
 
 export default function QuoteViewer({quoteList}) {
   

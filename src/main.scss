@@ -1,5 +1,50 @@
-@import '../node_modules/bootstrap/scss/bootstrap';
-@import 'colors';
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --base-theme-color: #e14a5f;
+  --base-theme-color: #f97672;
+  --base-theme-color: #007acc;
+
+  --base-theme-color: #a79d9d;
+  --base-alt-theme-color: #f97672;
+  
+  --base-link-color: #007acc;
+  --base-header-color: var(--base-theme-color);
+  
+  --base-text-color: #FFFFFF;
+  --base-shaded-text-color: #DDDDDD;
+  --base-alt-text-color: #999;
+  --base-alt-subtext-color: #817474;
+  --background: #282828;
+  --background-alt: #303030;
+  
+  --header-background: #766f6f;
+  
+  --amplify-login-tabs-color: #766f6f;
+  --amplify-login-tabs-hover-color: #FFFFFF;
+  
+  --tab-background-color: #766f6f;
+  --tab-border-color: #766f66;
+  
+  --logo-stack-color: #9AC7BF;
+  
+  --odd-row-color: #303030;
+  --even-row-color: #514e4e;
+
+  --bs-code-color: #007acc !important;
+}
 
 body {
   margin: 0;
@@ -8,7 +53,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: $background !important;
+  background-color: var(--background) !important;
 }
 
 code {
@@ -18,5 +63,14 @@ code {
 
 .logo-stack {
   font-weight: bolder;
-  color: $logo-stack-color !important;
+  color: var(--logo-stack-color) !important;
+}
+
+a {
+  font-weight: 500;
+  color: var(--base-link-color);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--base-theme-color);
 }
