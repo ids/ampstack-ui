@@ -53,7 +53,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: $background !important;
+  background-color: var(--background) !important;
 }
 
 code {
