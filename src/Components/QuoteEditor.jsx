@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 import Markdown from 'react-markdown'
 
-import './QuoteEditor.scss';
+import './QuoteEditor.css';
 
 export default function QuoteEditor({quoteList, 
     upsertQuoteHandler, 
@@ -126,7 +126,7 @@ export default function QuoteEditor({quoteList,
   const getQuoteTextAlert = () => {
     if(showQuoteTextError) {
       return (
-        <Alert variant="danger" onClose={() => setShowQuoteTextError(false)} dismissible>
+        <Alert variant="light" onClose={() => setShowQuoteTextError(false)}>
         <p>Something must be added or it isn&apos;t a quote!</p>
         </Alert>
       );
@@ -136,8 +136,8 @@ export default function QuoteEditor({quoteList,
   const getQuoteAuthorAlert = () => {
     if(showQuoteAuthorError) {
       return (
-        <Alert variant="info" onClose={() => setShowQuoteAuthorError(false)} dismissible>
-        <p>If Author is left blank the quote will be attributed to Anonymous.</p>
+        <Alert variant="light" onClose={() => setShowQuoteAuthorError(false)}>
+        <p>If <b>Author</b> is left <b>blank</b> the quote will be attributed to <b>Anonymous</b>.</p>
         </Alert>
       );
     }

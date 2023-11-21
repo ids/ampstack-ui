@@ -2,7 +2,7 @@ import { Authenticator, ThemeProvider, View } from '@aws-amplify/ui-react';
 import { useNavigate } from 'react-router';
 
 import '@aws-amplify/ui-react/styles.css';
-import "./Login.scss";
+import "./Login.css";
 
 import { loginComponents } from './LoginComponents';
 import { idsTheme } from './IDStudiosTheme';

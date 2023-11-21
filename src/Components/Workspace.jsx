@@ -9,7 +9,7 @@ import QuoteViewer from './QuoteViewer';
 import QuoteEditor from './QuoteEditor';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { API } from "aws-amplify";
-import './Workspace.scss';
+import './Workspace.css';
 
 import { QuoteController } from '../Controllers/Quote';
 

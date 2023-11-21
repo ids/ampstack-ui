@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { API } from "aws-amplify";
 
-import './Header.scss';
+import './Header.css';
 
 import UserProfileModal from './UserProfileModal';
 import { UserController } from '../Controllers/User';
@@ -59,14 +59,16 @@ export default function Header({ user, route, signoutCallback }) {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto Header-link">
+        <Nav className="Header-link">
           <Link to={`about`}>About</Link> 
+        </Nav>
         { (route === 'authenticated') ?
-        (
-          <Link to={`workspace`}>Workspace</Link> 
-        ) : (<></>)
+          (
+            <Nav className="Header-link">
+              <Link to={`workspace`}>Workspace</Link> 
+            </Nav>
+          ) : (<></>)
         }
-        </Nav>        
       </Navbar.Collapse>
       <Navbar.Collapse className="justify-content-end">
       { (route === 'authenticated' && user && user.attributes) ?

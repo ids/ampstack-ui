@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
 import moment from 'moment';
 
-import './UserProfileModal.scss';
+import './UserProfileModal.css';
 import { UserController } from '../Controllers/User';
 import { API } from "aws-amplify";
 

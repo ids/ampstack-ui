@@ -1,6 +1,6 @@
 import { useTheme, View, Text } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import './LoginComponents.scss';
+import './LoginComponents.css';
 
 export const loginComponents = {
 

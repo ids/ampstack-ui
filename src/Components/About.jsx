@@ -1,6 +1,6 @@
 import Image from 'react-bootstrap/Image';
 import Markdown from 'react-markdown'
-import './About.scss';
+import './About.css';
 
 import ABOUT_MARKDOWN from './About.md?raw';
 

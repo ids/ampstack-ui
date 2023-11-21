@@ -1,5 +1,3 @@
-@import '../colors';
-
 .Workspace {
   font-weight: normal;
   padding: .5em;
@@ -14,7 +12,7 @@
 
 .Workspace-preamble {
   font-size: .7em;
-  color: $base-alt-text-color;
+  color: var(--base-alt-text-color);
 }
 
 .workspace-tabs {
@@ -25,7 +23,7 @@
 
 .workspace-tab {
   min-height: 55vh;
-  border: 1px solid $tab-border-color;
+  border: 1px solid var(--tab-border-color);
   border-top: none;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -38,15 +36,15 @@
 
 h2 {
   font-size: 1em !important;
-  color: $base-text-color !important;
+  color: var(--base-text-color) !important;
 }
 
 .nav-tabs .nav-link.active {
-  background-color: $tab-background-color !important;
-  color: $base-text-color !important;
+  background-color: var(--tab-background-color) !important;
+  color: var(--base-text-color) !important;
 }
 
 .nav-tabs .nav-link {
-  color: $base-alt-subtext-color !important;
+  color: var(--base-alt-subtext-color) !important;
 }
 
