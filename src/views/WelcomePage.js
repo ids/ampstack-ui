@@ -14,6 +14,9 @@ export const WelcomePageView = Backbone.View.extend({
       console.info("init welcome");
   },
 
+  showWelcomeMessage: function() {
+    $("#welcomeMessagePanel").fadeIn();
+  },
   render: function() {
     console.info("welcome page render");
 

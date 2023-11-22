@@ -23,21 +23,24 @@
     </div>
   </div>
 
-  <% if(currentUser) { %>
-    <div class="Welcome-message">
-      Welcome back <span class="Welcome-user"> <%= currentUser.attributes['email'] %></span>
-    </div>
-    <div class="Welcome-submessage">
-      click <a href="#workspace">Workspace</a> to go to the <b>Demo</b> Workspace...
-    </div>
-    <div class="Welcome-submessage">
-      click <a href="#about">About</a> for more details.
-    </div>
+  <div id="welcomeMessagePanel" style="display: none;"">
+    <% if(currentUser) { %>
+      <div class="Welcome-message">
+        Welcome back <span class="Welcome-user"> <%= currentUser.attributes['email'] %></span>
+      </div>
+      <div class="Welcome-submessage">
+        click <a href="#workspace">Workspace</a> to go to the <b>Demo</b> Workspace...
+      </div>
+      <div class="Welcome-submessage">
+        click <a href="#about">About</a> for more details.
+      </div>
 
-  <% } else { %>
-    <h1 class="Welcome-intromessage">Welcome to AmpStack HQ</h1>
-    <div class="Welcome-submessage">
-      Sign in for the <b>Demo</b> Workspace
-    </div>      
-  <% } %>
+    <% } else { %>
+      <h1 class="Welcome-intromessage">Welcome to AmpStack HQ</h1>
+      <div class="Welcome-submessage">
+        Sign in for the <b>Demo</b> Workspace
+      </div>      
+    <% } %>
+  </div>
+
 </div>

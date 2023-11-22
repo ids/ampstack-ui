@@ -200,9 +200,12 @@ export const App = Backbone.View.extend({
 
     this.loadAuthorizedUser().then(() => {
       console.info("Load Authorized User Succeeded!");
+      this.welcomeView.showWelcomeMessage();
+
     }).catch((ex) => {
       if(ex.toString().indexOf("UserUnAuthenticatedException") > -1) {
         console.info("The user has not yet authenticated");
+        this.welcomeView.showWelcomeMessage();
       } else {
 
         console.error("Load Authorized User Failed 1st Time, One Retry!");
@@ -211,6 +214,8 @@ export const App = Backbone.View.extend({
         wait(500).then(() => {
           this.loadAuthorizedUser().then(() => {
             console.info("Load Authorized User Succeeded!");
+            this.welcomeView.showWelcomeMessage();
+
           }).catch((ex) => {
             console.error("Load Authorized User Failed 2x, Stop the Madness!");
             console.error(ex);
