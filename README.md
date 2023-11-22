@@ -27,7 +27,7 @@ The backend is implemented in [AmpStack API](https://github.com/ids/ampstack-api
 ![AmpStack Diagram](./AmpStack.png "AmpStack")
 
 ## Amplify Notes
-The docs are getting better and better, but the are few things you that will save you hours of lost time.
+The docs are getting better and better, but there are few things you that will save you hours of lost time.
 
 ### Custom Login UI
 As this is a VanillaJS project, there are no pre-made Amplify UI components for the login process.  It is possible to use the Cognito Hosted UI without writing any code, but you have no control over the appearance.  It is more likely you would create your own branded login in a real world application.  This application tackles that.
