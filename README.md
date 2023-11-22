@@ -24,7 +24,7 @@ The backend is implemented in [AmpStack API](https://github.com/ids/ampstack-api
 - Integrated CI/CD
 
 ## Design
-![AmpStack Diagram](./public/AmpStack.png "AmpStack")
+![AmpStack Diagram](./AmpStack.png "AmpStack")
 
 ## Amplify Notes
 The docs are getting better and better, but the are few things you that will save you hours of lost time.

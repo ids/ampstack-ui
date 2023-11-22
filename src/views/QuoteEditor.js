@@ -24,10 +24,11 @@ export const QuoteEditorView = Backbone.View.extend({
   deleteQuoteCallback: undefined,
 
   events: {
-    "click #quoteAddButton":                          "addEditQuoteHandler",
-    "click .QuoteEditor-list-edit-button":            "editQuoteHandler",
-    "click #quoteCancelEditButton":                   "cancelEditQuoteHandler",
-    "click .QuoteEditor-list-delete-button":          "deleteQuoteHandler"
+    "click    #quoteAddButton":                          "addEditQuoteHandler",
+    "click    .QuoteEditor-list-edit-button":            "editQuoteHandler",
+    "click    #quoteCancelEditButton":                   "cancelEditQuoteHandler",
+    "click    .QuoteEditor-list-delete-button":          "deleteQuoteHandler",
+    "keydown  #quoteEditorAuthorField":                  "onAuthorChange"
   },
 
   initialize: function() {
@@ -45,6 +46,18 @@ export const QuoteEditorView = Backbone.View.extend({
     $("#quoteEditorTextField").trigger('focus'); 
   },
 
+  setAddQuoteButton: function() {
+    $("#quoteAddButton").html(ADD_QUOTE_BUTTON_TEXT);
+    $("#quoteAddButton").removeClass("btn-warning");
+    $("#quoteAddButton").addClass("btn-primary");
+  },
+
+  setConfirmButton: function() {
+    $("#quoteAddButton").html(ADD_QUOTE_BUTTON_TEXT_CONFIRM);
+    $("#quoteAddButton").removeClass("btn-primary");
+    $("#quoteAddButton").addClass("btn-warning");
+  },
+
   validateQuoteForm: function() {
     if($("#quoteEditorTextField").val() === "") {
       $("#quoteTextBlankAlert").fadeIn();
@@ -58,8 +71,7 @@ export const QuoteEditorView = Backbone.View.extend({
       setTimeout(() => {
         $("#quoteAuthorBlankAlert").fadeOut()
       }, ALERT_DELAY);
-      $("#quoteAddButton").html(ADD_QUOTE_BUTTON_TEXT_CONFIRM);
-      $("#quoteAddButton").addClass("btn-warning");
+      this.setConfirmButton();
       return false;
     }
     return true;
@@ -132,6 +144,10 @@ export const QuoteEditorView = Backbone.View.extend({
       console.error("can't find the quoteId attribute");
     }
 
+  },
+
+  onAuthorChange: function(event) {
+    this.setAddQuoteButton();
   },
 
   setFocus: function() {
