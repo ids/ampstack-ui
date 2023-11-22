@@ -30,7 +30,7 @@ The AmpStack pattern is well suited to fanning out API functionality among numer
 - __Amplify Backend__ can still be used in addition to the Serverless API.
 - Demonstrates how __Cognito Authentication__ can be re-used across AWS services.
 - __Serverless Framework__ AWS resources are declarative in the __serverless.yml__ to generate __Cloud Formation__ templates automatically. 
-- Although implemented as React, the front-end can be any of the supported Amplify Front-end frameworks (Angular, NextJS, VuewJS, React and plain old Javascript).   
+- Although initially implemented as React, the front-end can be any of the supported Amplify Front-end frameworks.   
 - Development costs are minimal due to serverless nature.
 
 ### Source
