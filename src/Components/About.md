@@ -13,7 +13,19 @@
 - Uses a [Serverless Framework](https://www.serverless.com/framework/docs) __ExpressJS REST API__ backend linked to the same __AWS Cognito__ user pool for shared authentication. 
 - Enables the __Amplify React SPA__ to be a front-end component of a micro-service architecture. 
 
-### Notes:
+
+<br/>
+
+### Micro-Service Usage:
+The AmpStack pattern is well suited to fanning out API functionality among numerous teams in a __micro-services__ style fashion, including 3rd party services and custom cloud provider offerings.  Service decomposition is possible due to the one-to-many UI-API relationship.
+
+<div class="About-diagram-container">
+  <img src="/AmpStack-AmpStackMicroservice.svg" alt="image" class="About-microservice-diagram">
+</div>
+
+<br/>
+
+### Additional Notes:
 - __Serverless Framework__ enables running __Serverless Express__ locally for development and debugging, with numerous plugins, such as the local __DynamoDB__, [serverless-dynamodb](https://github.com/raisenational/serverless-dynamodb), and a mature development platform.
 - __Amplify Backend__ can still be used in addition to the Serverless API.
 - Demonstrates how __Cognito Authentication__ can be re-used across AWS services.
