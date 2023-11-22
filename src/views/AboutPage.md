@@ -13,7 +13,21 @@
 - Uses a [Serverless Framework](https://www.serverless.com/framework/docs) __ExpressJS REST API__ backend linked to the same __AWS Cognito__ user pool for shared authentication. 
 - Enables the __Amplify Web SPA__ to be a front-end component of a micro-service architecture. 
 
-### Notes:
+<br/>
+
+### Micro-Service Usage:
+The AmpStack pattern is well suited to fanning out API functionality among numerous teams in a __micro-services__ style fashion, including 3rd party services and custom cloud provider offerings.
+
+<div class="About-diagram-container">
+  <img src="../../../public/AmpStack-AmpStackMicroservice.svg" alt="image" class="About-microservice-diagram">
+</div>
+
+- Micro-services are not about the size of the API, or the scope of its function, or its ability to handle load.  They solve the problem of federating services across numerous teams to enable parallel development in large organizations with complex systems. A single serverless API can scale to any load - but you don't want to co-ordinate 5 teams of people all issuing pull requests to a large multi-topic codebase.  Enter micro-services.
+- A well articulated monolith is easier to re-factor into a micro-services application shared across newly established development teams then a distributed monolith attempting to guess future team structure and application evolution.  Adopting micro-services before you have the teams to support them is akin to pre-mature optimization, and will almost always result in __more__ rework, not less.
+
+<br/>
+
+### Additional Notes:
 - __Serverless Framework__ enables running __Serverless Express__ locally for development and debugging, with numerous plugins, such as the local __DynamoDB__, [serverless-dynamodb](https://github.com/raisenational/serverless-dynamodb), and a mature development platform.
 - __Amplify Backend__ can still be used in addition to the Serverless API.
 - Demonstrates how __Cognito Authentication__ can be re-used across AWS services.
