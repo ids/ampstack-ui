@@ -27,7 +27,8 @@ export function UserController() {
   }
   
   async function logIdToken() {
-    console.log(`Bearer: ${(await fetchAuthSession()).tokens.idToken }`);
+    console.info("API Authorization Header (for curl testing):")
+    console.info(`Bearer: ${(await fetchAuthSession()).tokens.idToken.toString()}`);
   }
   
   async function getRegisteredUser(userId) {

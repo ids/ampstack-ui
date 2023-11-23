@@ -13,7 +13,7 @@ export function QuoteController() {
       const resp = await restOperation.response;
       const allQuotes = await resp.body.json();
     
-      allQuotes.sort(function(a,b){
+      allQuotes.sort((a,b) => {
         // Turn your strings into dates, and then subtract them
         // to get a value that is either negative, positive, or zero.
         return new Date(b.submittedDate) - new Date(a.submittedDate);
@@ -54,7 +54,7 @@ export function QuoteController() {
     await restOperation.response;
     console.log("Delete Quote succeeded");
   }
-  
+
   return {
     loadAllQuotes,
     upsertQuote,

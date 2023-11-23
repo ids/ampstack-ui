@@ -74,7 +74,6 @@ export const QuoteEditorView = Backbone.View.extend({
   },
 
   addEditQuoteHandler: function(event) {
-    var that = this;
     let quote = undefined;
 
     console.log("add/edit quote");

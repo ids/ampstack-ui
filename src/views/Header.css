@@ -82,3 +82,7 @@
   background-color: var(--background) !important;
   color: var(--base-alt-text-color) !important;
 }
+
+.modal-header .btn-close {
+  color: var(--base-alt-text-color) !important;
+}

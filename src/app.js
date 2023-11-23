@@ -143,7 +143,7 @@ export const App = Backbone.View.extend({
   },
 
   loadAuthorizedUser: async function(target) {
-    console.info("attempting to load authorized user");
+    console.info("Attempting to load Authorized User (if there is one)");
 
     const authUser = await getCurrentUser(); 
     const attributes = await fetchUserAttributes();
@@ -161,24 +161,28 @@ export const App = Backbone.View.extend({
     console.debug(registeredUser);
   },
 
-  authenticationBootstrap: async (target) => {
+  authenticationBootstrap: async function(target) {
     const retryLimit = 3;
     let retries = 0;
 
-    while(!target.currentUser && retries < retryLimit ) {
+    while(!this.currentUser && retries < retryLimit ) {
       try {
-        console.log(`auth bootstrap attempt ${retries}`);
+        console.log(`Auth Bootstrap attempt ${retries}`);
         await target.loadAuthorizedUser(target);
         console.info("Load Authorized User Succeeded!");    
       } catch(ex) {
         console.error(ex);
         if(ex.toString().indexOf("UserUnAuthenticatedException") > -1) {
-          console.info("The user has not yet authenticated");
+          console.info("The user has not yet authenticated, Auth Bootstrap exit");
           retries = 3;
         } else {
           await wait(500);
+          retries++;
+          console.info(`Auth Bootstrap retries are at ${retries}, ${(retries < 3) ? 'retrying...' : ' time to give up.'}`);
         }
-      }    
+      } finally {
+        console.info("Auth Bootstrap Complete!");
+      }   
     }
   },
 
@@ -186,7 +190,6 @@ export const App = Backbone.View.extend({
     this.$el.html(this.template({}));
 
     this.authenticationBootstrap(this).then(() => {
-      console.debug("auth bootstrap complete");
       this.renderChildViews();
       this.welcomeView.showWelcomeMessage();
     });
