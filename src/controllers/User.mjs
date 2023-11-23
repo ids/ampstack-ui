@@ -10,7 +10,7 @@ export function UserController() {
         providerType = JSON.parse(user.attributes.identities)[0].providerType;
       }
     } catch (ex) {
-      console.log("no luck parsing the user.attributes!");
+      console.error("no luck parsing the user.attributes for providerType, might be a Cognito user.");
     }
     return providerType;
   }
@@ -41,7 +41,7 @@ export function UserController() {
     const registeredUser = await (await restOperation.response).body.json();
 
     console.info(`Fetched registered user ${userId}:`);
-    console.debug(registeredUser);
+    console.info(registeredUser);
 
     return registeredUser;
   }
@@ -68,7 +68,7 @@ export function UserController() {
     const registeredUser = await (await restOperation.response).body.json();
 
     console.info(`Posted register user update ${payload.userId}:`);
-    console.debug(registeredUser);
+    console.info(registeredUser);
 
     return registeredUser;
   }

@@ -16,7 +16,7 @@ export function QuoteController() {
         return new Date(b.submittedDate) - new Date(a.submittedDate);
       });
 
-      console.log(`Fetched ${allQuotes.length} Quotes.`);
+      console.info(`Fetched ${allQuotes.length} Quotes.`);
 
       return allQuotes;
   }
@@ -35,8 +35,8 @@ export function QuoteController() {
       
       const savedQuote = await (await restOperation.response).body.json();
 
-      console.debug("parsed upsertQuote response:")
-      console.debug(savedQuote);  
+      console.info("parsed upsertQuote response:")
+      console.info(savedQuote);  
 
       return savedQuote;
   }
@@ -48,7 +48,7 @@ export function QuoteController() {
     });
     
     await restOperation.response;
-    console.log("Delete Quote succeeded");
+    console.info("Delete Quote succeeded");
   }
 
   return {
