@@ -10,8 +10,7 @@ export function QuoteController() {
         path: '/quotes/all' 
       });
       
-      const resp = await restOperation.response;
-      const allQuotes = await resp.body.json();
+      const allQuotes = await (await restOperation.response).body.json();
     
       allQuotes.sort((a,b) => {
         return new Date(b.submittedDate) - new Date(a.submittedDate);
@@ -34,8 +33,7 @@ export function QuoteController() {
         }
       });
       
-      const resp = await restOperation.response;
-      const savedQuote = await resp.body.json();
+      const savedQuote = await (await restOperation.response).body.json();
 
       console.debug("parsed upsertQuote response:")
       console.debug(savedQuote);  

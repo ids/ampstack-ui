@@ -38,8 +38,7 @@ export function UserController() {
       path: '/users/' + userId 
     });
     
-    const resp = await restOperation.response;
-    const registeredUser = await resp.body.json();
+    const registeredUser = await (await restOperation.response).body.json();
 
     console.info(`Fetched registered user ${userId}:`);
     console.debug(registeredUser);
@@ -66,8 +65,7 @@ export function UserController() {
       }
     });
     
-    const resp = await restOperation.response;
-    const registeredUser = await resp.body.json();
+    const registeredUser = await (await restOperation.response).body.json();
 
     console.info(`Posted register user update ${payload.userId}:`);
     console.debug(registeredUser);
