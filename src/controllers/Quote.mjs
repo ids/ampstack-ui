@@ -14,8 +14,6 @@ export function QuoteController() {
       const allQuotes = await resp.body.json();
     
       allQuotes.sort((a,b) => {
-        // Turn your strings into dates, and then subtract them
-        // to get a value that is either negative, positive, or zero.
         return new Date(b.submittedDate) - new Date(a.submittedDate);
       });
 

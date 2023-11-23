@@ -46,19 +46,18 @@ export const WorkspacePageView = Backbone.View.extend({
   },
 
   render: function() {
-    var that = this;
     this.$el.html(this.template({}));
 
     this.quoteViewer = new QuoteViewerView({ el: "#quoteViewer"});
     this.quoteEditor = new QuoteEditorView({ el: "#quoteEditor"});
-    this.quoteEditor.upsertQuoteCallback = async (quote) => {
+    this.quoteEditor.upsertQuoteCallback = async (quote) =>  {
       try 
       {
-        const savedQuote = await that.quoteController.upsertQuote(quote);
+        const savedQuote = await this.quoteController.upsertQuote(quote);
         console.info(`Saved quote: ${savedQuote.quoteId}`);
         console.debug(savedQuote);
-        that.quoteEditor.clearAddQuoteForm();
-        that.loadQuotes();  
+        this.quoteEditor.clearAddQuoteForm();
+        this.loadQuotes();  
       } catch(ex) {
         console.error("Upsert quote FAILED:", ex);
       }
@@ -66,9 +65,9 @@ export const WorkspacePageView = Backbone.View.extend({
 
     this.quoteEditor.deleteQuoteCallback = async (quoteId) => {
       try {
-        await that.quoteController.deleteQuote(quoteId);
+        await this.quoteController.deleteQuote(quoteId);
         console.info(`Deleted quote: ${quoteId}`);
-        that.loadQuotes();  
+        this.loadQuotes();  
       } catch(ex) {
         console.error("Delete quote FAILED:", ex);
       }
