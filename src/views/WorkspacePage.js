@@ -26,14 +26,14 @@ export const WorkspacePageView = Backbone.View.extend({
     }, 500);
   },
 
-  loadQuotes: function() {
-    this.quoteController.loadAllQuotes().then((allQuotes) => {
+  loadQuotes: async function() {
+    try {
+      const allQuotes = await this.quoteController.loadAllQuotes();
       this.quotes = allQuotes;
-      this.renderChildViews();
-    }).catch((ex) => {
-      console.error("ERROR loading quotes:");
-      console.error(ex);
-    });
+      this.renderChildViews();  
+    } catch(ex) {
+      console.error("ERROR loading quotes:", ex);
+    }
   },
 
   renderChildViews: function() {
@@ -47,32 +47,31 @@ export const WorkspacePageView = Backbone.View.extend({
 
   render: function() {
     var that = this;
-
     this.$el.html(this.template({}));
 
     this.quoteViewer = new QuoteViewerView({ el: "#quoteViewer"});
     this.quoteEditor = new QuoteEditorView({ el: "#quoteEditor"});
-    this.quoteEditor.upsertQuoteCallback = (quote) => {
-      this.quoteController.upsertQuote(quote).then((savedQuote) => {
+    this.quoteEditor.upsertQuoteCallback = async (quote) => {
+      try 
+      {
+        const savedQuote = await that.quoteController.upsertQuote(quote);
         console.info(`Saved quote: ${savedQuote.quoteId}`);
         console.debug(savedQuote);
         that.quoteEditor.clearAddQuoteForm();
-        that.loadQuotes();
-      }).catch((ex) => {
-        console.error("ERROR adding quote:");
-        console.error(ex);
-      });  
+        that.loadQuotes();  
+      } catch(ex) {
+        console.error("Upsert quote FAILED:", ex);
+      }
     };
 
-    this.quoteEditor.deleteQuoteCallback = (quoteId) => {
-      this.quoteController.deleteQuote(quoteId).then((resp) => {
+    this.quoteEditor.deleteQuoteCallback = async (quoteId) => {
+      try {
+        await that.quoteController.deleteQuote(quoteId);
         console.info(`Deleted quote: ${quoteId}`);
-        console.debug(resp);
-        that.loadQuotes();
-      }).catch((ex) => {
-        console.error("ERROR deleting quote:");
-        console.error(ex);
-      });
+        that.loadQuotes();  
+      } catch(ex) {
+        console.error("Delete quote FAILED:", ex);
+      }
     };
 
     this.renderChildViews();

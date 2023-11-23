@@ -76,7 +76,7 @@ export const LoginPageView = Backbone.View.extend({
     $("#verifiedCodePanel").fadeIn();
   },
 
-  signInButtonClickHandler: function(event) {
+  signInButtonClickHandler: async function(event) {
     console.debug("sign in button clicked");
     
     if($("#signInEmailTextField").val() === "") {
@@ -88,30 +88,32 @@ export const LoginPageView = Backbone.View.extend({
     }
 
     $("#signInAlert").hide();
-    signIn({
-      username: $("#signInEmailTextField").val(),
-      password: $("#signInPasswordTextField").val()
-    }).then((response) => {
+    try 
+    {
+      const response = await signIn({
+        username: $("#signInEmailTextField").val(),
+        password: $("#signInPasswordTextField").val()
+      });    
       console.log(`isSignedIn: ${response.isSignedIn}`);
       if(response.isSignedIn) {
         this.signInCompleteCallback?.();
       }
       this.activeUsername = $("#signInEmailTextField").val();
-      this.calculateNextStep(response.nextStep.signInStep, "signInPanel")
-    }).catch((ex) => {
-      if(ex.message.indexOf("There is already a signed in user") > -1) {
-        signOut().then(() => {
-          this.showSignInPanel();
-          $("#signInButton").trigger('click');
-        });
-      }
+      this.calculateNextStep(response.nextStep.signInStep, "signInPanel")  
+    } catch(ex) {
       console.error(ex);
-      $("#signInAlert").html(ex.message);
-      $("#signInAlert").fadeIn();
-    })
+      if(ex.message.indexOf("There is already a signed in user") > -1) {
+        await signOut();
+        this.showSignInPanel();
+        $("#signInButton").trigger('click');
+      } else {
+        $("#signInAlert").html(ex.message);
+        $("#signInAlert").fadeIn();  
+      }
+    }
   },
 
-  signUpButtonClickHandler: function(event) {
+  signUpButtonClickHandler: async function(event) {
 
     if($("#signUpEmailTextField").val() === "") {
       $("#signUpAlert").html("An email address must be entered!");
@@ -130,43 +132,47 @@ export const LoginPageView = Backbone.View.extend({
     }
 
     $("#signUpAlert").hide();
-    signUp({
-      username: $("#signUpEmailTextField").val(),
-      password: $("#signUpPasswordTextField").val(),
-      email: $("#signUpEmailTextField").val()
-    }).then((response) => {
+    try {
+      const response = await signUp({
+        username: $("#signUpEmailTextField").val(),
+        password: $("#signUpPasswordTextField").val(),
+        email: $("#signUpEmailTextField").val()
+      });
+      
       console.log(`isSignUpComplete: ${response.isSignUpComplete}`);
       console.log(`userId: ${response.userId}`);
-
+  
       if(response.isSignUpComplete) {
         this.signInCompleteCallback?.(response.userId);
       }
       this.activeUsername = $("#signUpEmailTextField").val();
       this.calculateNextStep(response.nextStep.signUpStep, "signUpPanel")
-    }).catch((ex) => {
+  
+    } catch(ex) {
       console.error(ex);
       $("#signUpAlert").html(ex.message);
       $("#signUpAlert").fadeIn();
-    });
+    }
   },
 
-  confirmSignUpButtonClickHandler: function(event) {
+  confirmSignUpButtonClickHandler: async function(event) {
     $("#verifiedCodeAlert").hide();
-    confirmSignUp({
+    const response = await confirmSignUp({
       username: this.activeUsername,
       confirmationCode: $("#verifiedCodeTextField").val()
-    }).then((response) => {
+    });
+    try {
       console.log(`isSignUpComplete: ${response.isSignUpComplete}`);
 
       if(response.isSignUpComplete) {
         this.showSignInPanel();
       }
       this.calculateNextStep(response.nextStep)
-    }).catch((ex) => {
+    } catch(ex) {
       console.error(ex);
       $("#verifiedCodeAlert").html(ex.message);
       $("#verifiedCodeAlert").fadeIn();
-    });
+    }    
   },  
 
   signInWithGoogleButtonClickHandler: function(event) {

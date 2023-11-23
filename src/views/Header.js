@@ -35,8 +35,6 @@ export const HeaderView = Backbone.View.extend({
   },
 
   render: function() {
-    var that = this;
-
     this.$el.html(this.template({
       currentUser: this.user,
       providerTag: this.user ? this.userController.getProviderTag(this.user) : undefined
@@ -63,20 +61,20 @@ export const HeaderView = Backbone.View.extend({
     }
 
     if(this.user) {
-      setTimeout(() => {
-        // fetching the latest user registration in DynamoDB for the profile modal
-        console.info(`Fetching registered user data for ${that.user.username}`);
-        this.userController.getRegisteredUser(this.user.username).then((registeredUser) => {
+      setTimeout(async () => {
+        try {
+          // fetching the latest user registration in DynamoDB for the profile modal
+          console.info(`Fetching registered user data for ${this.user.username}`);
+          const registeredUser = await this.userController.getRegisteredUser(this.user.username);
+          
+          this.userProfileModalView = new UserProfileModalView({ el: "#userProfileModalContainer"});
+          this.userProfileModalView.user = this.user;
+          this.userProfileModalView.userProfile = registeredUser;
+          this.userProfileModalView.render();    
 
-          that.userProfileModalView = new UserProfileModalView({ el: "#userProfileModalContainer"});
-          that.userProfileModalView.user = that.user;
-          that.userProfileModalView.userProfile = registeredUser;
-          that.userProfileModalView.render();    
-
-        }).catch((ex) => {
-          console.error("ERROR getting registered user:");
-          console.error(ex);
-        });  
+        } catch(ex) {
+          console.error("ERROR getting registered user:", ex);
+        }
       }, 500);
     }
   }

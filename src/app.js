@@ -47,26 +47,30 @@ export const App = Backbone.View.extend({
       console.debug("sign in is complete");
       this.onSignInComplete(userId);
     } 
-    this.loginView.signInWithGoogleCallback = (user) => {
+    this.loginView.signInWithGoogleCallback = async (user) => {
       console.debug("sign in with google");
-      signInWithRedirect({ provider: 'Google' }).then((resp) => {
+      try {
+        const resp = await signInWithRedirect({ provider: 'Google' });
         console.debug("Google OAuth response:");
         console.log(resp);
-      }).catch((ex) => {
-        console.error("ERROR: Google OAuth:");
-        console.error(ex);
-      });
+  
+      } catch(ex) {
+        console.error("ERROR: Google OAuth:", ex);
+
+      }
     } 
-    this.loginView.signInWithAmazonCallback = (user) => {
+    this.loginView.signInWithAmazonCallback = async (user) => {
       console.log("sign in with amazon");
-      signInWithRedirect({ provider: 'Amazon' }).then((resp) => {
+      try 
+      {
+        const resp = await signInWithRedirect({ provider: 'Amazon' });
         console.debug("Amazon OAuth response:");
-        console.log(resp);
-      }).catch((ex) => {
-        console.error("ERROR: Amazon OAuth:");
-        console.error(ex);
-      });
+        console.log(resp);  
+      } catch(ex) {
+        console.error("ERROR: Amazon OAuth:", ex);
+      }
     } 
+
     this.loginView.render();
     this.currentView = this.loginView;
     $(this.currentView.el).show();
@@ -106,16 +110,14 @@ export const App = Backbone.View.extend({
     this.headerView.signInCallback = () => {
       this.showLoginPage();
     }; 
-    this.headerView.signOutCallback = () => {
-      var that = this;
-
-      signOut().then((resp) => {
+    this.headerView.signOutCallback = async () => {
+      try {
+        const resp = await signOut();
         console.info("signout response:");
-        window.location.href = "/";
-      }).catch((ex) => {
-        console.error("error signing out");
-        console.error(ex);
-      });
+        window.location.href = "/";  
+      } catch(ex) {
+        console.error("Error signing out:", ex);
+      }    
     }; 
 
     this.footerView = new FooterView({ el: "#app-footer"});
@@ -140,55 +142,53 @@ export const App = Backbone.View.extend({
     this.footerView.render();
   },
 
-  loadAuthorizedUser: async function() {
+  loadAuthorizedUser: async function(target) {
+    console.info("attempting to load authorized user");
+
     const authUser = await getCurrentUser(); 
     const attributes = await fetchUserAttributes();
 
-    this.currentUser = authUser;
-    this.currentUser.attributes = attributes;
+    target.currentUser = authUser;
+    target.currentUser.attributes = attributes;
 
     console.info("Cognito User:")
-    console.info(this.currentUser);
+    console.info(target.currentUser);
 
-    this.userController.logIdToken();
+    target.userController.logIdToken();
 
-    const registeredUser = await this.userController.registerUser(this.currentUser);
+    const registeredUser = await target.userController.registerUser(target.currentUser);
     console.info("User registration SUCESS")
     console.debug(registeredUser);
+  },
 
-    this.renderChildViews();
+  authenticationBootstrap: async (target) => {
+    const retryLimit = 3;
+    let retries = 0;
+
+    while(!target.currentUser && retries < retryLimit ) {
+      try {
+        console.log(`auth bootstrap attempt ${retries}`);
+        await target.loadAuthorizedUser(target);
+        console.info("Load Authorized User Succeeded!");    
+      } catch(ex) {
+        console.error(ex);
+        if(ex.toString().indexOf("UserUnAuthenticatedException") > -1) {
+          console.info("The user has not yet authenticated");
+          retries = 3;
+        } else {
+          await wait(500);
+        }
+      }    
+    }
   },
 
   render: function() {
-    const that = this;
-
     this.$el.html(this.template({}));
 
-    this.loadAuthorizedUser().then(() => {
-      console.info("Load Authorized User Succeeded!");
+    this.authenticationBootstrap(this).then(() => {
+      console.debug("auth bootstrap complete");
+      this.renderChildViews();
       this.welcomeView.showWelcomeMessage();
-
-    }).catch((ex) => {
-      if(ex.toString().indexOf("UserUnAuthenticatedException") > -1) {
-        console.info("The user has not yet authenticated");
-        this.welcomeView.showWelcomeMessage();
-      } else {
-
-        console.error("Load Authorized User Failed 1st Time, One Retry!");
-        console.error(ex);
-  
-        wait(500).then(() => {
-          this.loadAuthorizedUser().then(() => {
-            console.info("Load Authorized User Succeeded!");
-            this.welcomeView.showWelcomeMessage();
-
-          }).catch((ex) => {
-            console.error("Load Authorized User Failed 2x, Stop the Madness!");
-            console.error(ex);
-            window.location.reload();
-          });
-        });  
-      };
     });
 
     this.renderChildViews();

@@ -36,8 +36,8 @@ export function QuoteController() {
         }
       });
       
-      const resp = restOperation.response;
-      const savedQuote = resp.body.json();
+      const resp = await restOperation.response;
+      const savedQuote = await resp.body.json();
 
       console.debug("parsed upsertQuote response:")
       console.debug(savedQuote);  
@@ -51,12 +51,10 @@ export function QuoteController() {
       path: '/quotes/' + quoteId
     });
     
-    const resp = await restOperation.response;
+    await restOperation.response;
     console.log("Delete Quote succeeded");
-    
-    return resp;
   }
-
+  
   return {
     loadAllQuotes,
     upsertQuote,

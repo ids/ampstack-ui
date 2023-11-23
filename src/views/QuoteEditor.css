@@ -13,15 +13,22 @@
   margin-top: -5px;
 }
 
+.QuoteEditor-list-item {
+  width: 100%;
+}
+
 .QuoteEditor-list-quote-text {
   font-size: .7em !important;
   font-weight: lighter;
   color: var(--base-text-color);
   padding: 0;
-  margin-right: 1em;
-  max-width: 90%;
-  
+  margin-right: 1em;  
 }
+
+.QuoteEditor-list-quote-text p {
+  width: 100%;
+}
+
 .QuoteEditor-list-quote-author {
   font-size: .6em !important;
   color: var(--base-alt-text-color);

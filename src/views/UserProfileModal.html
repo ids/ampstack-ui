@@ -55,7 +55,7 @@
                 <label>Last Workspace Date:</label>
               </div>
               <div class="col">
-                <span class="UserProfileModal-value"><%= moment(userProfile.lastWorkspaceDate).calendar() %></span>                
+                <span class="UserProfileModal-value"><%= moment(new Date(userProfile.lastWorkspaceDate)).calendar() %></span>                
               </div>
             </div>
           </div>

@@ -48,7 +48,7 @@
     </div>
   </form>
   <hr />
-  <ul class="list-group QuoteEditor-listing">
+  <ul class="list-group">
     <% quotes.map((quote, index) => { 
 
       let className = "list-group-item d-flex justify-content-between align-items-start";
@@ -59,7 +59,7 @@
       }
       %>
       <li class="<%= className %>" id="quoteListItem<%= index %>">
-        <div>
+        <div class="QuoteEditor-list-item">
           <div class="QuoteEditor-list-quote-text"><%= markdown(quote.text) %></Markdown></div>
           <div class="QuoteEditor-list-quote-author"><%= markdown('&ndash; ' + (quote.author === "" ? "Anonymous" : quote.author)) %></Markdown></div>
         </div>
