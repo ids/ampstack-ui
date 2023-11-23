@@ -31,10 +31,6 @@ export const QuoteEditorView = Backbone.View.extend({
     "keydown  #quoteEditorAuthorField":                  "onAuthorChange"
   },
 
-  initialize: function() {
-      console.info("init quote editor");
-  },
-
   clearAddQuoteForm: function() {
     $("#quoteAddButton").html(ADD_QUOTE_BUTTON_TEXT);
     $("#quoteAddButton").removeClass("btn-warning");
@@ -155,7 +151,6 @@ export const QuoteEditorView = Backbone.View.extend({
   },
 
   render: function() {
-    console.info("quote editor render");
 
     if(this.user) {
       const markdown = (text) => {

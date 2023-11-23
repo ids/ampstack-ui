@@ -16,7 +16,7 @@ export const HeaderView = Backbone.View.extend({
   
   events: {
     "click #signInButton":          "signInButtonHandler",
-    "click #signOutLink":           "signOutLinkHandler",
+    "click #signOutLink":           "signOutLinkHandler"
   },
 
   signInCallback: undefined,
@@ -30,17 +30,12 @@ export const HeaderView = Backbone.View.extend({
     this.signInCallback?.();
   },
 
-  initialize: function() {
-    console.info("init header");
-  },
-
   setActiveTab(tabName) {
     $(`#${tabName}Tab`).addClass('active');
   },
 
   render: function() {
     var that = this;
-    console.info("header render");
 
     this.$el.html(this.template({
       currentUser: this.user,
@@ -72,12 +67,12 @@ export const HeaderView = Backbone.View.extend({
         // fetching the latest user registration in DynamoDB for the profile modal
         console.info(`Fetching registered user data for ${that.user.username}`);
         this.userController.getRegisteredUser(this.user.username).then((registeredUser) => {
+
           that.userProfileModalView = new UserProfileModalView({ el: "#userProfileModalContainer"});
           that.userProfileModalView.user = that.user;
           that.userProfileModalView.userProfile = registeredUser;
           that.userProfileModalView.render();    
-          console.info("rendered user profile");
-          console.debug(registeredUser);
+
         }).catch((ex) => {
           console.error("ERROR getting registered user:");
           console.error(ex);

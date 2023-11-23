@@ -39,9 +39,6 @@ export const App = Backbone.View.extend({
   currentUser: undefined,
   userController: new UserController(),
 
-  initialize: function() {
-  },
-
   showLoginPage: function() {
     if(this.currentView) { $(this.currentView.el).hide(); }
 
@@ -77,14 +74,7 @@ export const App = Backbone.View.extend({
 
   onSignInComplete: function(user) {
     console.debug("sign in complete, we got a AmpStack user from the custom login page");
-//    this.currentUser = user;
-//    console.log(this.currentUser);
-//    this.clearLoginPage();
-//    this.renderChildViews();
-
-//    this.router.navigate("/");
-
-    window.location.href = "/";;
+    window.location.reload();
   },
 
   clearLoginPage: function() {
@@ -150,52 +140,28 @@ export const App = Backbone.View.extend({
     this.footerView.render();
   },
 
-  loadAuthorizedUser: function() {
-    const that = this;
-    return new Promise((resolve, reject) => {
-      try {
-        getCurrentUser().then((authUser) => {
-        
-          fetchUserAttributes().then((attributes) => {
-            that.currentUser = authUser;
-            that.currentUser.attributes = attributes;
-    
-            console.info("Cognito User:")
-            console.info(that.currentUser);
-    
-            that.userController.logIdToken();
-    
-            console.info(`Registering User: ${that.currentUser.username}`);
-            that.userController.registerUser(that.currentUser).then((registeredUser) => {
-              console.log("User Registration SUCESS")
-              console.debug(registeredUser);
-              resolve();
-            }).catch((regEx) => {
-              console.log("User Registration FAILED")
-              reject(regEx);
-            });
+  loadAuthorizedUser: async function() {
+    const authUser = await getCurrentUser(); 
+    const attributes = await fetchUserAttributes();
 
-            that.renderChildViews();
-          }).catch((ex) => {
-            console.warn("Error getting current user attributes:");
-            reject(ex);  
-          });
+    this.currentUser = authUser;
+    this.currentUser.attributes = attributes;
 
-        }).catch((ex) => {
-          reject(ex);  
-        });
+    console.info("Cognito User:")
+    console.info(this.currentUser);
 
-      } catch(ex) {
-        console.error("We caught the network!");
-        reject(ex);
-      }
-    });
+    this.userController.logIdToken();
+
+    const registeredUser = await this.userController.registerUser(this.currentUser);
+    console.info("User registration SUCESS")
+    console.debug(registeredUser);
+
+    this.renderChildViews();
   },
 
   render: function() {
     const that = this;
 
-    console.debug("app render");    
     this.$el.html(this.template({}));
 
     this.loadAuthorizedUser().then(() => {

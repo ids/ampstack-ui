@@ -10,12 +10,7 @@ export const UserProfileModalView = Backbone.View.extend({
 
   template: _.template(HTML_TEMPLATE),
 
-  initialize: function() {
-      console.info("init user profile modal");
-  },
-
   render: function() {
-    console.info("user profile modal render");
     this.$el.html(this.template({
       user: this.user,
       userProfile: this.userProfile,

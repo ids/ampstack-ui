@@ -21,10 +21,6 @@ export const LoginPageView = Backbone.View.extend({
     "click #signInWithAmazonButton":          "signInWithAmazonButtonClickHandler",
   },
 
-  initialize: function() {
-    console.info("init login page");
-  },
-
   /**
     CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED - The user was created with a temporary password and must set a new one. Complete the process with confirmSignIn.
     CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE - The sign-in must be confirmed with a custom challenge response. Complete the process with confirmSignIn.
@@ -182,7 +178,6 @@ export const LoginPageView = Backbone.View.extend({
   },
 
   render: function() {
-    console.info("login page render");
     this.$el.html(this.template({}));
   }
 });

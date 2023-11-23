@@ -12,12 +12,7 @@ export const AboutPageView = Backbone.View.extend({
 
   template: _.template(HTML_TEMPLATE),
 
-  initialize: function() {
-      console.info("init footer");
-  },
-
   render: function() {
-    console.info("about page render");
 
     marked.use({
       pedantic: false,

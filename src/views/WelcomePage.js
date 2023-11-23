@@ -10,16 +10,10 @@ export const WelcomePageView = Backbone.View.extend({
   template: _.template(HTML_TEMPLATE),
   user: undefined,
 
-  initialize: function() {
-      console.info("init welcome");
-  },
-
   showWelcomeMessage: function() {
     $("#welcomeMessagePanel").fadeIn();
   },
   render: function() {
-    console.info("welcome page render");
-
     this.$el.html(this.template({
       currentUser: this.user
     }));

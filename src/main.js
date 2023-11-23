@@ -14,8 +14,6 @@ import './main.scss'
 
 import { App } from './app';
 
-const app = new App({ el: "#app"});
-
 const AppRouter = Backbone.Router.extend({
 	routes: {
 		"": "showWelcomePage",
@@ -33,8 +31,9 @@ const AppRouter = Backbone.Router.extend({
 	}
 });
 
-// @ts-ignore
-$(document).ready(function() {
+const app = new App({ el: "#app"});
+
+$(() => {
   app.render();
   app.router = new AppRouter();
   Backbone.history.start();

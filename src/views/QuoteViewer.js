@@ -13,16 +13,8 @@ export const QuoteViewerView = Backbone.View.extend({
   template: _.template(HTML_TEMPLATE),
   quotes: [],
 
-  initialize: function() {
-      console.log("init quote viewer");
-      console.log(this.$el);
-  },
-
   render: function() {
-    console.info("quote viewer render");
     let quoteList = [];
-
-    console.info("processing quotes: " + this.quotes.length);
 
     this.quotes.forEach((quote) => {
 

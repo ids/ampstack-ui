@@ -16,7 +16,7 @@
 <br/>
 
 ### Micro-Service Usage:
-The AmpStack pattern is well suited to fanning out API functionality among numerous teams in a __micro-services__ style fashion, including 3rd party services and custom cloud provider offerings.  Service decomposition is possible due to the one-to-many UI-API relationship.
+The AmpStack pattern is well suited to fanning out API functionality among numerous teams in a __micro-services__ architecture, including 3rd party services and custom cloud provider offerings.  Service decomposition is possible due to the one-to-many UI-API relationship.
 
 <div class="About-diagram-container">
   <img src="/AmpStack-AmpStackMicroservice.svg" alt="image" class="About-microservice-diagram">

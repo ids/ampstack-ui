@@ -20,11 +20,6 @@ export const WorkspacePageView = Backbone.View.extend({
     "click #quoteEditorTab":            "quoteEditorTabClickHandler"
   },
 
-  initialize: function() {
-      console.log("init workspace");
-      console.log(this.$el);
-  },
-
   quoteEditorTabClickHandler: function(event) {
     setTimeout(() => {
       this.quoteEditor.setFocus();
@@ -32,13 +27,8 @@ export const WorkspacePageView = Backbone.View.extend({
   },
 
   loadQuotes: function() {
-    console.info("loading quotes from controller");
     this.quoteController.loadAllQuotes().then((allQuotes) => {
       this.quotes = allQuotes;
-
-      console.debug("fetch quotes complete:");
-      console.debug(this.quotes);
-
       this.renderChildViews();
     }).catch((ex) => {
       console.error("ERROR loading quotes:");
@@ -48,7 +38,7 @@ export const WorkspacePageView = Backbone.View.extend({
 
   renderChildViews: function() {
     this.quoteViewer.quotes = this.quotes;
-    this.quoteViewer.render();
+    if(this.quotes.length > 0) { this.quoteViewer.render() };
 
     this.quoteEditor.quotes = this.quotes;
     this.quoteEditor.user = this.user;
@@ -58,8 +48,6 @@ export const WorkspacePageView = Backbone.View.extend({
   render: function() {
     var that = this;
 
-    console.log("workspace page render");
-    console.log(this.$el.attr('id'));
     this.$el.html(this.template({}));
 
     this.quoteViewer = new QuoteViewerView({ el: "#quoteViewer"});
@@ -78,11 +66,11 @@ export const WorkspacePageView = Backbone.View.extend({
 
     this.quoteEditor.deleteQuoteCallback = (quoteId) => {
       this.quoteController.deleteQuote(quoteId).then((resp) => {
-        console.info(`Delete quote: ${quoteId}`);
+        console.info(`Deleted quote: ${quoteId}`);
         console.debug(resp);
         that.loadQuotes();
       }).catch((ex) => {
-        console.error("ERROR adding quote:");
+        console.error("ERROR deleting quote:");
         console.error(ex);
       });
     };

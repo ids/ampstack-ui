@@ -1,41 +1,10 @@
 import { get, post } from "aws-amplify/api";
 import { fetchAuthSession } from 'aws-amplify/auth';
 
-async function _getUser(userId) {
-  try {
-    const restOperation = get({ 
-      apiName: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
-      path: '/users/' + userId 
-    });
-    
-    return await restOperation.response;
-  } catch (ex) {
-    console.log('GET call getUser failed: ', ex);
-    throw ex;
-  }
-}
-
-async function _registerUser({user, callback, errorHandler}) {
-  try {
-    const restOperation = post({
-      apiName: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
-      path: '/users',
-      options: {
-        body: user
-      }
-    });
-    
-    return await restOperation.response;
-  } catch (ex) {
-    console.error('POST call registerUser failed: ', ex);
-    throw ex;
-  }
-}
-
 export function UserController() {
 
   function getProviderType(user) {
-    let providerType = "Default";
+    let providerType = "";
     try {
       if (user.attributes.identities) {
         providerType = JSON.parse(user.attributes.identities)[0].providerType;
@@ -61,46 +30,48 @@ export function UserController() {
     console.log(`Bearer: ${(await fetchAuthSession()).tokens.idToken }`);
   }
   
-  function getRegisteredUser(userId) {
-    return new Promise((resolve, reject) => {
-      _getUser(userId).then((resp) => {
-        resp.body.json().then((registeredUser) => {
-          console.info("Unpacked Registered User:");
-          console.log(registeredUser);  
-          resolve(registeredUser);  
-        });
-      });
+  async function getRegisteredUser(userId) {
+
+    const restOperation = get({ 
+      apiName: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
+      path: '/users/' + userId 
     });
+    
+    const resp = await restOperation.response;
+    const registeredUser = await resp.body.json();
+
+    console.info(`Fetched registered user ${userId}:`);
+    console.debug(registeredUser);
+
+    return registeredUser;
   }
 
-  function registerUser(user) {
-    return new Promise((resolve, reject) => {
-      if(!user) {
-        reject({ message: "registerUser got a falsey User!"});
-      }
-    
-      console.info("Auth User:");
-      console.info(user);
-      
-      let payload = {
-        userId: user.username,
-        email: user.attributes['email']
-      };
-  
-      console.info("Register User Send Payload:")
-      console.info(payload);
-      
-      _registerUser({
-        user: payload 
-      }).then((resp) => {
-        resp.body.json().then((registeredUser) => {
-          console.info("Unpacked Registered User:");
-          console.log(registeredUser);  
+  async function registerUser(user) {
 
-          resolve(registeredUser);  
-        });
-      });
+    if(!user) {
+      throw({ message: "registerUser got a falsey User!"});
+    }
+
+    let payload = {
+      userId: user.username,
+      email: user.attributes['email']
+    };
+
+    const restOperation = post({
+      apiName: import.meta.env.VITE_EXPRESS_ENDPOINT_NAME,
+      path: '/users',
+      options: {
+        body: payload
+      }
     });
+    
+    const resp = await restOperation.response;
+    const registeredUser = await resp.body.json();
+
+    console.info(`Posted register user update ${payload.userId}:`);
+    console.debug(registeredUser);
+
+    return registeredUser;
   }
   
   return {
