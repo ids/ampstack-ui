@@ -28,3 +28,13 @@
   font-size: 1em;
   padding-right: 1em;
 }
+
+.UserProfileModal .modal-close-button {
+  font-size: 1.25em;
+  font-weight: bold !important;
+}
+
+.UserProfileModal .modal-close-button:hover {
+  color: var(--base-alt-theme-color);
+  cursor: pointer;
+}
