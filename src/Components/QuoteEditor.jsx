@@ -127,7 +127,7 @@ export default function QuoteEditor({quoteList,
     if(showQuoteTextError) {
       return (
         <Alert variant="light" onClose={() => setShowQuoteTextError(false)}>
-        <p>Something must be added or it isn&apos;t a quote!</p>
+        <p>Something must be entered or it isn&apos;t a quote!</p>
         </Alert>
       );
     }

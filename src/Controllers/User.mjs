@@ -29,51 +29,34 @@ export function UserController(API) {
     console.log(`Bearer: ${(await Auth.currentSession()).getIdToken().getJwtToken()}`);
   }
   
-  function registerUser(user) {
-    return new Promise((resolve, reject) => {
-      if(!user) {
-        console.error("registerUser got a falsey User!");
-        reject();
-      }
-  
-      console.log(user);
-      
-      let payload = {
-        body: {
-          userId: user.username,
-          email: user.attributes['email']
-        }, 
-        headers: {} // OPTIONAL
-      };
-  
-      API.post(import.meta.env.VITE_EXPRESS_ENDPOINT_NAME, "/users", payload).then((postedUser) => {
-        console.log("Registered User visit to Workspace:");
-        console.debug(postedUser);
-        logIdToken();
-        resolve(postedUser);
-      }).catch((err) => {
-        console.error("Post User API ERROR:");
-        console.error(err);
-        reject(err);
-      });
-    });
-  }
-  
-  function getRegisteredUser(userId) {
-    return new Promise((resolve, reject) => {
-  
-      API.get(import.meta.env.VITE_EXPRESS_ENDPOINT_NAME, "/users/" + userId).then((fetchedUser) => {
-        console.log(`Fetched User with userId [${userId}]:`);
-        console.debug(fetchedUser);
-        resolve(fetchedUser);
-      }).catch((err) => {
-        console.error("Get User API ERROR:");
-        console.error(err);
-        reject(err);
-      });
-    });
-  }
+  async function registerUser(user) {
+    if(!user) {
+      throw("registerUser got a falsey User!");
+    }
 
+    let payload = {
+      body: {
+        userId: user.username,
+        email: user.attributes['email']
+      }, 
+      headers: {} // OPTIONAL
+    };
+    const postedUser = await API.post(import.meta.env.VITE_EXPRESS_ENDPOINT_NAME, "/users", payload);
+    
+    console.log("Registered user visit to Workspace:");
+    console.debug(postedUser);
+
+    logIdToken();
+
+    return postedUser;
+  }
+  
+  async function getRegisteredUser(userId) {
+    const fetchedUser = await API.get(import.meta.env.VITE_EXPRESS_ENDPOINT_NAME, "/users/" + userId);
+    console.log(`Fetched user with userId [${userId}]:`);
+    console.debug(fetchedUser);
+    return fetchedUser;
+  }
 
   return {
     getProviderType,
