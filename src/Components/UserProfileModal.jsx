@@ -61,7 +61,7 @@ export default function UserProfileModal({user, showProfile, handleProfileClose}
           </Row>
           <Row>
             <Col><label>Last Workspace Date:</label></Col>
-            <Col><span className="UserProfileModal-value">{ moment(userProfile.lastWorkspaceDate).calendar() }</span></Col>
+            <Col><span className="UserProfileModal-value">{ moment(new Date(userProfile.lastWorkspaceDate)).calendar() }</span></Col>
           </Row>
         </Container>
       </Modal.Body>

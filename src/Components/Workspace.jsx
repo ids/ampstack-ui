@@ -23,14 +23,13 @@ export default function Workspace() {
 
   const quoteController = QuoteController(API);
 
-  function loadQuotes() {
-    quoteController.loadAllQuotes().then((allQuotes) => {
-      setQuoteList(quoteList => ({
-        ...quoteList,
-        items: allQuotes
-      }));
-      isLoading.current = false;
-    })
+  async function loadQuotes() {
+    const allQuotes = await quoteController.loadAllQuotes();
+    setQuoteList(quoteList => ({
+      ...quoteList,
+      items: allQuotes
+    }));
+    isLoading.current = false;
   }
 
   useEffect(() => {
@@ -46,22 +45,24 @@ export default function Workspace() {
   }, []); 
   
   
-  const upsertQuoteHandler = (quote) => {
-    quoteController.upsertQuote(quote).then((savedQuote) => {
+  const upsertQuoteHandler = async (quote) => {
+    try {
+      const savedQuote = await quoteController.upsertQuote(quote);
       console.info("Saved Quote:");
       console.info(savedQuote);
-      loadQuotes();
-    }).catch((err) => {
-      alert(`Save Quote failed with ${err.message} , better check the logs!`);
-    });
+      loadQuotes();  
+    } catch(ex) {
+      console.error("Save quote FAILED:", ex);
+    }
   }
 
-  const deleteQuoteHandler = (quoteId) => {
-    quoteController.deleteQuote(quoteId).then(() => {
-      loadQuotes();
-    }).catch((err) => {
-      alert(`Delete Quote failed with ${err.message} , better check the logs!`);
-    });
+  const deleteQuoteHandler = async (quoteId) => {
+    try {
+      await quoteController.deleteQuote(quoteId);
+      loadQuotes();  
+    } catch(ex) {
+      console.error("Delete Quote FAILED:", ex);
+    }
   };
 
   const onTabSelectHandler = (event) => {
