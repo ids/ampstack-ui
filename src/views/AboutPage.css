@@ -50,3 +50,7 @@ h3 {
   padding-bottom: 1.5em;
   padding-left: 1.75em;
 }
+
+.About a {
+  font-size: 1.1em;
+}
