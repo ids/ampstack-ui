@@ -49,19 +49,20 @@ git checkout dev
 amplify env checkout dev
 ```
 
-The [amplify](/amplify) folder can be problematic when switching branches.  If troubles come up:
 
-- Delete the `amplify` folder
-- run the command `amplify pull --appId XXXXX --envName dev/prod/etc`
+But even this can cause headaches.  And if you are using `pull requests` to deploy to stage branches, they will pull in the [amplify](/amplify) folder and be misaligned to the environment.
 
-You can find the exact command to run by checking the environment details on the Authentication tab, though all you really need is the `appId`.
+So it seems the [amplify](/amplify) folder is best left out of `git`.  
 
-> __Note:__ that Amplify will ask some bootstrap questions as part of this about your local environment, it is portant to answer __Y__ to the last question of __do you want to make changes to the Backend__, as if you answer __No__, it will fail to pull the [backend](/amplify/backend) folder and then throw errors complaining that it can't find the __backend__ folder.  It is a dumb question.
+> There isn't really any reason to keep the `amplify` folder in your git branch, as most of the files are not editable and are CLI generated.  When you `pull` the environment, the only part of the __backend__ that really needs `git` is the __api__.  Odd to place the __api src__ in such a place, I'm glad I prefer the serverless framework approach.  It has caused folks a lot of trouble with git branches and environments.  Keeping the amplify folder out of git, and having seperate folders per branch side steps those annoyances.
 
-### Note: team-provider-info.json
-In order to use this repo you will need to remove the amplify folder entirely and replace it with your own by using the `amplify cli`.  There is one core file that contains what some might consider sensitive information, and it is [team-provider-info.json](https://github.com/aws-amplify/amplify-cli/issues/1779).
+It is best to pull from the configured Amplify environment that aligns with the branch you are working on:
 
-In private repos it is checked in and shared among the team... in this repo it isn't. Best to keep that out and manage it independently.
+- run the command `amplify pull --appId XXXXX --envName dev/prod/etc` to setup your branch environment.
+
+You can find the exact command to run by checking the environment details on the Authentication tab, though all you really need is the `appId` and `envName`.
+
+> __Note:__ Amplify will ask some bootstrap questions about your local environment as part of the `pull` , it is portant to answer __Y__ to the last question of __do you want to make changes to the Backend__. If you answer __No__, it will fail to pull the [backend](/amplify/backend) folder and then throw errors later complaining that it can't find the __backend__ folder.  It is a dumb question.
 
 ### General Amplify Setup
 The following loosely describes the steps for setting up the core scaffolding of the AmpStack.  Check the Amplify docs for details if you've never done it before.
