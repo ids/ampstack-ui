@@ -23,8 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
+amplify
+amplify/**
 amplify/team-provider-info.json
-
 .env
 !.env.sample
 
