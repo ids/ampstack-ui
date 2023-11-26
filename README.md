@@ -60,7 +60,7 @@ It is best to pull from the configured Amplify environment that aligns with the 
 
 - run the command `amplify pull --appId XXXXX --envName dev/prod/etc` to setup your branch environment.
 
-You can find the exact command to run by checking the environment details on the Authentication tab, though all you really need is the `appId` and `envName`.
+You can find the exact command by checking the environment details on the Authentication tab, though all you really need is the `appId` and `envName`.
 
 > __Note:__ Amplify will ask some bootstrap questions about your local environment as part of the `pull` , it is portant to answer __Y__ to the last question of __do you want to make changes to the Backend__. If you answer __No__, it will fail to pull the [backend](/amplify/backend) folder and then throw errors later complaining that it can't find the __backend__ folder.  It is a dumb question.
 
